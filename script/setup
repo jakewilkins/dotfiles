@@ -55,4 +55,6 @@ if [ $CODESPACES ]; then
 	git config --global include.path /etc/gitconfig
 fi
 
-sudo chsh -s $(which fish)
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+sudo chsh -s $(which zsh)
