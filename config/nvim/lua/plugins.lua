@@ -77,12 +77,38 @@ return require('packer').startup({function()
 			}
 		},
 		{ 'tpope/vim-repeat' },
-		{ 'tpope/vim-surround' }
+		{ 'tpope/vim-surround' },
+    { "tpope/vim-obsession" },
+    { 'tpope/vim-endwise' },
+    { 'tpope/vim-ragtag' },
+    { 'tpope/vim-rhubarb' },
+    { 'tpope/vim-dispatch' }
 	}
 
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
 
-  use 'tpope/vim-endwise'
+
+  -- Jake's plugins
+  use "jgdavey/vim-blockle"
+  use "rust-lang/rust.vim"
+  use "geoffharcourt/vim-matchit"
+  use "itspriddle/vim-marked"
+  use "ervandew/supertab"
+  use "vim-ruby/vim-ruby"
+  use "jparise/vim-graphql"
+  use "matze/vim-move"
+  use "Raimondi/delimitMate"
+  use "joker1007/vim-ruby-heredoc-syntax"
+  use "rizzatti/funcoo"
+  use "rking/vim-detailed"
+  use "janko/vim-test"
+  use "vim-scripts/L9"
+  use "scrooloose/nerdcommenter"
+  use "kchmck/vim-coffee-script"
+  use "tommcdo/vim-exchange"
+  use "mileszs/ack.vim"
+  use "junegunn/vim-peekaboo"
+  use "ctrlpvim/ctrlp"
 
 end, config = { display = { open_fn = require('packer.util').float }}})
