@@ -61,13 +61,26 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 
 -- don't beep for errors
-vim.opt.visualbell = true
+-- vim.opt.visualbell = true
+vim.opt.noerrorbells = true
 
 -- use tab-complete to see a list of possiblities when entering commands
 vim.opt.wildmode = 'list:longest,full'
 
 -- don't wrap long lines
 vim.opt.wrap = false
+
+vim.g.solarized_termcolors = 256
+--" let g:solarized_termcolors=16
+vim.g.solarized_visibility = "high"
+vim.g.solarized_style = "dark"
+vim.g.solarized_termtrans = 1
+-- " let g:solarized_contrast="high"
+--" colorscheme solarized
+vim.opt.colorscheme = "iceberg"
+
+--"      setup my statusline
+vim.opt.statusline = "%f\\%h%m%r%%=%c,%l/%L %P%{fugitive#statusline()}"
 
 --- MAPPINGS ---
 
@@ -86,7 +99,18 @@ map('n', '<Leader>ss', ':wa<cr>')
 map('n', 'gW', ':only<cr>')
 
 -- go to the alternate file (previous buffer) with g-enter
-map('n', 'g', '')
+-- map('n', 'g', '')
+-- map('n', 'C-L', ':TagbarToggle<cr>')
+
+map('i', '<C-E>', '<esc>$a', {noremap = true})
+map('i', '<C-f>', '<esc>la', {noremap = true})
+map('i', '<C-d>', '<esc>lxi', {noremap = true})
+map('i', '<C-k>', '<esc>lC', {noremap = true})
+map('i', 'hh', '=>', {noremap = true})
+map('n', '<leader>cp', ':let @+-expand("%")<CR>')
+
+map('', ';w', ':set wrap!')
+map('', ';v', ':set paste!')
 
 -- Search command shortcut
 map('n', '<Leader>s', ':Search<Space>')

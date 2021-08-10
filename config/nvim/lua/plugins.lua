@@ -15,9 +15,11 @@ return require('packer').startup({function()
 	use {
 		'dense-analysis/ale',
 		config = function()
-			vim.g['airline#extensions#ale#enabled'] = 1
+			-- vim.g['airline#extensions#ale#enabled'] = 1
 			vim.g['ale_virtualtext_cursor'] = 1
 			vim.g['ale_fix_on_save'] = 1
+      vim.g['ale_lint_on_enter'] = 0
+      vim.g['ale_line_delay'] = 300
 
 			vim.cmd('highlight ALEWarning gui=underline')
 			vim.cmd('highlight ALEVirtualTextError guifg=#BF616A') -- red
@@ -63,7 +65,7 @@ return require('packer').startup({function()
 		end,
 	}
 
-	use 'tomtom/tcomment_vim'
+	-- use 'tomtom/tcomment_vim'
 
 	-- All hail @tpope
 	use {
@@ -95,7 +97,12 @@ return require('packer').startup({function()
   use "geoffharcourt/vim-matchit"
   use "itspriddle/vim-marked"
   use "ervandew/supertab"
-  use "vim-ruby/vim-ruby"
+  use {
+    "vim-ruby/vim-ruby",
+    config = function()
+      vim.g['ruby_indent_assignment_style'] = 'variable'
+    end,
+  }
   use "jparise/vim-graphql"
   use "matze/vim-move"
   use "Raimondi/delimitMate"
@@ -104,11 +111,39 @@ return require('packer').startup({function()
   use "rking/vim-detailed"
   use "janko/vim-test"
   use "vim-scripts/L9"
-  use "scrooloose/nerdcommenter"
+  use {
+    "scrooloose/nerdcommenter",
+    config = function()
+      vim.g['NERDSpaceDelims'] = 1
+      vim.g['NERDDefaultAlign'] = 'left'
+    end,
+  }
   use "kchmck/vim-coffee-script"
   use "tommcdo/vim-exchange"
-  use "mileszs/ack.vim"
+  use {
+    "mileszs/ack.vim",
+    config = function()
+      vim.g['ackprg'] = 'rg --vimgrep --no-heading'
+      map('n', 'KK', ':Ag \b<C-R><C-W>\b<CR>')
+      map('n', 'Kk', ':Ag <C-R><C-W>')
+      map('n', 'KD', ':Ag def (self\\.)?<C-R><C-W><CR>')
+      map('n', 'KC', ':Ag class ([A-Za-z]+::)*<C-R><C-W><CR>')
+      map('n', 'KC', ':Ag module ([A-Za-z]+::)*<C-R><C-W><CR>')
+    end,
+  }
   use "junegunn/vim-peekaboo"
-  use "ctrlpvim/ctrlp"
+  use {
+    "ctrlpvim/ctrlp",
+    config = function()
+      map('n', '<Leader>fb', ':CrlPBuffer<CR')
+      vim.g['ctrlp_match_window'] =  'bottom,order:btt,min:1,max:15,results:30'
+      vim.g['ctrlp_clear_cache_on_exit'] = 1
+      vim.g['ctrlp_max_depth'] = 40
+      vim.g['ctrlp_user_command'] = {'.git', 'cd %s && git ls-files'}
+      vim.g['ctrlp_by_filename'] = 0
+      vim.g['ctrlp_map'] = '<c-p>'
+      vim.g['ctrlp_cmd'] = 'CtrlPMRU'
+    end,
+  }
 
 end, config = { display = { open_fn = require('packer.util').float }}})
