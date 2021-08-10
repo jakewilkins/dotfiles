@@ -107,7 +107,7 @@ return require('packer').startup({function()
   use "matze/vim-move"
   use "Raimondi/delimitMate"
   use "joker1007/vim-ruby-heredoc-syntax"
-  use "rizzatti/funcoo"
+  use "rizzatti/funcoo.vim"
   use "rking/vim-detailed"
   use "janko/vim-test"
   use "vim-scripts/L9"
@@ -123,6 +123,8 @@ return require('packer').startup({function()
   use {
     "mileszs/ack.vim",
     config = function()
+			local utils = require('config.utils') -- lua/config/utils.lua
+			local map = utils.map
       vim.g['ackprg'] = 'rg --vimgrep --no-heading'
       map('n', 'KK', ':Ag \b<C-R><C-W>\b<CR>')
       map('n', 'Kk', ':Ag <C-R><C-W>')
@@ -132,10 +134,14 @@ return require('packer').startup({function()
     end,
   }
   use "junegunn/vim-peekaboo"
+
   use {
-    "ctrlpvim/ctrlp",
+    "ctrlpvim/ctrlp.vim",
     config = function()
-      map('n', '<Leader>fb', ':CrlPBuffer<CR')
+			local utils = require('config.utils') -- lua/config/utils.lua
+			local map = utils.map
+
+      map('n', '<Leader>fb', ':CrlPBuffer<CR>')
       vim.g['ctrlp_match_window'] =  'bottom,order:btt,min:1,max:15,results:30'
       vim.g['ctrlp_clear_cache_on_exit'] = 1
       vim.g['ctrlp_max_depth'] = 40
@@ -145,5 +151,7 @@ return require('packer').startup({function()
       vim.g['ctrlp_cmd'] = 'CtrlPMRU'
     end,
   }
+
+	use "cocopon/iceberg.vim"
 
 end, config = { display = { open_fn = require('packer.util').float }}})

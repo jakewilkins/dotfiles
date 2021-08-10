@@ -8,6 +8,7 @@ require('plugins')
 --- COLORS ---
 vim.o.termguicolors = true
 vim.opt.background = 'dark'
+--vim.o.colorscheme = 'iceberg'
 
 -- This technically works even if we're not using the their vim plugin.
 -- https://github.com/chriskempson/base16-shell/tree/ce8e1e540367ea83cc3e01eec7b2a11783b3f9e1#base16-vim-users
@@ -41,7 +42,7 @@ vim.opt.smartcase = true
 
 -- highlight trailing whitespace
 vim.opt.listchars = 'tab:> ,trail:-,extends:>,precedes:<,nbsp:+'
-vim.opt.list = true
+--vim.opt.list = true
 
 -- enable line numbers, and don't make them any wider than necessary
 vim.opt.number = true
@@ -62,7 +63,7 @@ vim.opt.shiftwidth = 2
 
 -- don't beep for errors
 -- vim.opt.visualbell = true
-vim.opt.noerrorbells = true
+--vim.o.noerrorbells = true
 
 -- use tab-complete to see a list of possiblities when entering commands
 vim.opt.wildmode = 'list:longest,full'
@@ -77,10 +78,10 @@ vim.g.solarized_style = "dark"
 vim.g.solarized_termtrans = 1
 -- " let g:solarized_contrast="high"
 --" colorscheme solarized
-vim.opt.colorscheme = "iceberg"
+-- vim.opt.colorscheme = "iceberg"
 
 --"      setup my statusline
-vim.opt.statusline = "%f\\%h%m%r%%=%c,%l/%L %P%{fugitive#statusline()}"
+vim.opt.statusline = "%f%h%m%r%w=%=%c,%l/%L %P%{fugitive#statusline()}"
 
 --- MAPPINGS ---
 
@@ -141,6 +142,8 @@ vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") < line("$") | ex
 
 -- recompile packer on save of plugins.lua
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
+
+vim.cmd('colorscheme iceberg')
 
 -- Create a search command that uses Ripgrep and offers previews
 local search_command = "command! -bang -complete=file -nargs=* Search call fzf#vim#grep('rg --column --line-number --no-heading --color=always '.<q-args>, 1, <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)"
