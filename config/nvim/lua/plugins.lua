@@ -141,7 +141,7 @@ return require('packer').startup({function()
 			local utils = require('config.utils') -- lua/config/utils.lua
 			local map = utils.map
 
-      map('n', '<Leader>fb', ':CrlPBuffer<CR>')
+      map('n', '<Leader>fb', ':CtrlPBuffer<CR>')
       vim.g['ctrlp_match_window'] =  'bottom,order:btt,min:1,max:15,results:30'
       vim.g['ctrlp_clear_cache_on_exit'] = 1
       vim.g['ctrlp_max_depth'] = 40
