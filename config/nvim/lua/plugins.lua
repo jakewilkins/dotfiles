@@ -43,17 +43,17 @@ return require('packer').startup({function()
 		requires = { 'junegunn/fzf.vim' },
 	}
 
-	use {
-		'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
-		config = function() require('gitsigns').setup() end
-	}
+	-- use {
+	--   'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
+	--   config = function() require('gitsigns').setup() end
+	-- }
 
-	use {
-		'ludovicchabant/vim-gutentags',
-		config = function()
-			vim.g['gutentags_file_list_command'] = "rg --files"
-		end,
-	}
+	-- use {
+	--   'ludovicchabant/vim-gutentags',
+	--   config = function()
+	--     vim.g['gutentags_file_list_command'] = "rg --files"
+	--   end,
+	-- }
 
 
 	use {
