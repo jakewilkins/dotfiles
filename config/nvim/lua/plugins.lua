@@ -83,6 +83,6 @@ return require('packer').startup({function()
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
 
-  use 'endwise'
+  use 'tpope/vim-endwise'
 
 end, config = { display = { open_fn = require('packer.util').float }}})
