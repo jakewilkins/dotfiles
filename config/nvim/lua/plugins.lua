@@ -38,6 +38,11 @@ return require('packer').startup({function()
 			map('n', '<Leader>t', ':FZF<cr>')
 			map('n', '<Leader>b', ':Buffers<cr>')
 			map('n', '<c-]>', ':Tags <c-r><c-w><cr>', { noremap = true })
+      map('n', 'KK', ':Rg  <C-R><C-W><CR>')
+      map('n', 'Kk', ':Rg <C-R><C-W>')
+      map('n', 'KD', ':Rg def (self\\.)?<C-R><C-W><CR>')
+      map('n', 'KC', ':Rg class ([A-Za-z]+::)*<C-R><C-W><CR>')
+      map('n', 'KC', ':Rg module ([A-Za-z]+::)*<C-R><C-W><CR>')
 		end,
 		run = function()
 			vim.fn['fzf#install']()
@@ -120,19 +125,6 @@ return require('packer').startup({function()
   }
   use "kchmck/vim-coffee-script"
   use "tommcdo/vim-exchange"
-  use {
-    "mileszs/ack.vim",
-    config = function()
-			local utils = require('config.utils') -- lua/config/utils.lua
-			local map = utils.map
-      vim.g['ackprg'] = 'rg --vimgrep --no-heading'
-      map('n', 'KK', ':Ag \b<C-R><C-W>\b<CR>')
-      map('n', 'Kk', ':Ag <C-R><C-W>')
-      map('n', 'KD', ':Ag def (self\\.)?<C-R><C-W><CR>')
-      map('n', 'KC', ':Ag class ([A-Za-z]+::)*<C-R><C-W><CR>')
-      map('n', 'KC', ':Ag module ([A-Za-z]+::)*<C-R><C-W><CR>')
-    end,
-  }
   use "junegunn/vim-peekaboo"
 
   use {
