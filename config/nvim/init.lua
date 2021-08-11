@@ -81,7 +81,7 @@ vim.g.solarized_termtrans = 1
 -- vim.opt.colorscheme = "iceberg"
 
 --"      setup my statusline
-vim.opt.statusline = "%f%h%m%r%w=%=%c,%l/%L %P%{fugitive#statusline()}"
+vim.opt.statusline = "%f%h%m%r%w%=%c,%l/%L %P%{fugitive#statusline()}"
 
 --- MAPPINGS ---
 
