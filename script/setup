@@ -10,22 +10,73 @@ DOTFILES_PATH=$(pwd -P)
 
 FILES_TO_SYMLINK=(config gemrc pryrc tmux tmux-macos.conf tmux.conf)
 
+function symlink_without_overwriting() {
+  local source_path=$1
+  local destination_path=$2
+
+  if [ -d "$source_path" ]; then
+    file_type="directory"
+    same_type_flag="-d"
+    wrong_type_flag="-f"
+  else
+    file_type="file"
+    same_type_flag="-f"
+    wrong_type_flag="-d"
+  fi
+
+  if [ $wrong_type_flag "$destination_path" ]; then
+    echo "$destination_path already exists and is not a $file_type, please figure out what you want done with that and re-run this script."
+    exit 1
+  elif [ $same_type_flag "$destination_path" ]; then
+    if [ -L "$destination_path" ]; then
+      destination=$(readlink $destination_path)
+      if [ "$destination" = "$source_path" ]; then
+        echo "$source_path is already symlinked to $destination"
+      else
+        echo "$destination_path exists as a symlink to something else, please figure out what you want done with that and re-run this script."
+        exit 1
+      fi
+    else
+      echo "$destination_path exists as a regular $file_type, please figure out what you want done with that and re-run this script."
+      exit 1
+    fi
+  else
+    ln -sfv $source_path $destination_path
+  fi
+}
+
 # If the config directory already exists, then just symlink all of
 # the contents instead.
-if [ -d "${HOME}/.config" ]; then
+if [ -L "${HOME}/.config" ]; then
+  destination=$(readlink "${HOME}/.config")
+  if [ "$destination" = "$DOTFILES_PATH/config" ]; then
+    echo "config dir is already symlinked to dotfiles."
+    unset FILES_TO_SYMLINK[0]
+  else
+    echo "config dir is symlinked to something else, figure that out and re-run this script."
+    exit 1
+  fi
+elif [ -d "${HOME}/.config" ]; then
 	for CONFIG_FILE in $DOTFILES_PATH/config/*; do
-		ln -sfv $CONFIG_FILE $HOME/.config/$(basename $CONFIG_FILE)
-	done
+    destination_path="$HOME/.config/$(basename $CONFIG_FILE)"
+    symlink_without_overwriting $CONFIG_FILE $destination_path
+  done
+
 
 	# Remove config from list since we've symlinked the contents.
 	unset FILES_TO_SYMLINK[0]
 fi
 
 for FILE in "${FILES_TO_SYMLINK[@]}"; do
-	ln -sf "${DOTFILES_PATH}/${FILE}" "${HOME}/.${FILE}"
+  source_path="${DOTFILES_PATH}/${FILE}"
+  dest_path="${HOME}/.${FILE}"
+  symlink_without_overwriting $source_path $dest_path
 done
 
 [ $(uname -s) = "Linux" ] && export LINUX=1
+[ $(uname -s) = "Darwin" ] && export DARWIN=1
+
+exit
 
 if [ $LINUX ]; then
 	apt-get update -y && apt-get install -y build-essential procps curl file git
@@ -44,7 +95,7 @@ brew bundle --file ./homebrew/Brewfile
 
 if [ $LINUX ]; then
 	brew bundle --file homebrew/Brewfile.linux
-else
+elif [ $DARWIN ]; then
 	brew bundle --file homebrew/Brewfile.darwin
 fi
 
@@ -59,4 +110,6 @@ fi
 
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-sudo chsh -s $(which zsh)
+if [ "$SHELL" != "/bin/zsh" ]; then
+  sudo chsh -s $(which zsh)
+fi
