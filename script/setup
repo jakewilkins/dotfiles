@@ -31,11 +31,13 @@ if [ $LINUX ]; then
 	apt-get update -y && apt-get install -y build-essential procps curl file git
 fi
 
-CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if hash brew 2>/dev/null; then
+  CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-if [ $LINUX ]; then
-	echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "${HOME}/.profile"
-	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  if [ $LINUX ]; then
+    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "${HOME}/.profile"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  fi
 fi
 
 brew bundle --file ./homebrew/Brewfile
