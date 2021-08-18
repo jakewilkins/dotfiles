@@ -34,4 +34,6 @@ config/nvim/plugin/packer_compiled.lua
 
 homebrew/Brewfile.*lock*
 
+tmux/resurrect/last
+tmux/resurrect/*.txt
 tmux/plugins/*
