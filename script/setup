@@ -116,6 +116,19 @@ fi
 echo "Installing vim plugins"
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
+echo "Symlinking dotfiles dir"
+ln -s "$(pwd)" "$HOME/.dotfiles"
+
+if [ $LINUX ]; then
+  echo "Symlinking linux specific files"
+  ln -s "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
+  ln -s "$(pwd)/p10k.zsh.linux" "$HOME/.p10k.zsh"
+elif [ $DARWIN ]; then
+  echo "Symlinking darwin specific files"
+  ln -s "$(pwd)/zshrc.darwin" "$(pwd)/system.zshrc"
+  ln -s "$(pwd)/p10k.zsh.darwin" "$HOME/.p10k.zsh"
+fi
+
 if [ "$SHELL" != "/bin/zsh" ]; then
   echo "Switching shell to zsh"
   sudo chsh -s $(which zsh)

@@ -1,0 +1,17 @@
+
+alias ip='ip -4 a show enp4s0'
+
+alias cgh='cd /home/workspace/github'
+
+alias beans="echo bruh"
+
+export GPG_TTY=$(tty)
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+
+whence _apptokit_wrapper 2>&1 >/dev/null || eval "$(/usr/local/lib/apptokit/bin/apptokit shell-setup -)"
+
+if [[ $PATH != *"/home/linuxbrew/.linuxbrew/sbin"* ]]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+
