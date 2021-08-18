@@ -14,22 +14,5 @@ fi
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /Users/jakewilkins/bin/hubbers hubbers
 
-# function mount-azure-gh() {
-#   sudo mount -o resvport,rw -t nfs 10.0.0.4:/home/jakewilkins/github/github/app /Users/jakewilkins/github/azure-nfs/github/app
-#   sudo mount -o resvport,rw -t nfs 10.0.0.4:/home/jakewilkins/github/github/lib /Users/jakewilkins/github/azure-nfs/github/lib
-#   sudo mount -o resvport,rw -t nfs 10.0.0.4:/home/jakewilkins/github/github/config /Users/jakewilkins/github/azure-nfs/github/config
-#   sudo mount -o resvport,rw -t nfs "10.0.0.4:/home/jakewilkins/github/github/test" "/Users/jakewilkins/github/azure-nfs/github/test"
-# }
-
-# function unmount-azure-gh() {
-#   sudo umount /Users/jakewilkins/github/azure-nfs/github/app
-#   sudo umount /Users/jakewilkins/github/azure-nfs/github/lib
-#   sudo umount /Users/jakewilkins/github/azure-nfs/github/config
-#   sudo umount "/Users/jakewilkins/github/azure-nfs/github/test"
-# }
-
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-
-# alias mount-azure="sudo mount -o resvport,rw -t nfs 10.0.0.4:/home/jakewilkins/github /Users/jakewilkins/github/github"
-# alias unmount-azure="sudo umount /Users/jakewilkins/github/github"
