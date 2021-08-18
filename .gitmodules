@@ -1,9 +1,9 @@
-[submodule "tmux/plugins/tmux-pain-control"]
-	path = tmux/plugins/tmux-pain-control
-	url = https://github.com/tmux-plugins/tmux-pain-control
-[submodule "tmux/plugins/tmux-sensible"]
-	path = tmux/plugins/tmux-sensible
-	url = https://github.com/tmux-plugins/tmux-sensible
+[submodule "tmux/plugins/tmux-continuum"]
+	path = tmux/plugins/tmux-continuum
+	url = https://github.com/tmux-plugins/tmux-continuum
+[submodule "tmux/plugins/tmux-resurrect"]
+	path = tmux/plugins/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect
 [submodule "tmux/plugins/tmux-yank"]
 	path = tmux/plugins/tmux-yank
 	url = https://github.com/tmux-plugins/tmux-yank
@@ -13,3 +13,6 @@
 [submodule "config/base16-shell"]
 	path = config/base16-shell
 	url = https://github.com/chriskempson/base16-shell
+[submodule "powerlevel10k"]
+	path = powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
