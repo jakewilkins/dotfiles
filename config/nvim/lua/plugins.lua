@@ -16,16 +16,17 @@ return require('packer').startup({function()
 		'dense-analysis/ale',
 		config = function()
 			-- vim.g['airline#extensions#ale#enabled'] = 1
-			vim.g['ale_virtualtext_cursor'] = 1
+			vim.g['ale_virtualtext_cursor'] = 0
 			vim.g['ale_fix_on_save'] = 1
       vim.g['ale_lint_on_enter'] = 0
       vim.g['ale_line_delay'] = 300
+			-- vim.g['ale_set_highlights'] = 0
 
 			vim.cmd('highlight ALEWarning gui=underline')
-			vim.cmd('highlight ALEVirtualTextError guifg=#BF616A') -- red
-			vim.cmd('highlight ALEVirtualTextWarning guifg=#EBCB8B') -- yellow
-			vim.cmd('highlight ALEVirtualTextStyleWarning guifg=#EBCB8B') -- yellow
-		end
+			vim.cmd('highlight ALEVirtualTextError guifg=#EBCB8B') -- red
+			vim.cmd('highlight ALEVirtualTextWarning guifg=#565678') -- yellow
+			vim.cmd('highlight ALEVirtualTextStyleWarning guifg=#565678') -- yellow
+		end,
 	}
 
 	use {

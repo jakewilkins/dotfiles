@@ -6,4 +6,18 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-return {map = map}
+-- Map a key to a lua callback
+local function map_lua(mode, keys, action, options)
+  if options == nil then
+    options = {}
+  end
+  vim.api.nvim_set_keymap(mode, keys, "<cmd>lua " .. action .. "<cr>", options)
+end
+
+local function platform()
+	local uname = io.popen('uname -s', 'r')
+	local platform = uname:read('*a')
+	return platform:gsub("\n", "")
+end
+
+return {map = map, map_lua = map_lua, platform = platform}

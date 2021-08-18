@@ -5,6 +5,7 @@ local map = utils.map
 --- PLUGINS ---
 require('plugins')
 
+
 --- COLORS ---
 vim.o.termguicolors = true
 vim.opt.background = 'dark'
@@ -90,8 +91,8 @@ vim.g.mapleader = [[,]]
 vim.g.maplocalleader = [[,]]
 
 -- easy wrap toggling
-map('n', '<LEADER>w', ':set wrap!<CR>')
-map('n', '<LEADER>W', ':set nowrap<CR>')
+-- map('n', '<LEADER>w', ':set wrap!<CR>')
+-- map('n', '<LEADER>W', ':set nowrap<CR>')
 
 -- shortcut to save all
 map('n', '<Leader>ss', ':wa<cr>')
@@ -108,10 +109,11 @@ map('i', '<C-f>', '<esc>la', {noremap = true})
 map('i', '<C-d>', '<esc>lxi', {noremap = true})
 map('i', '<C-k>', '<esc>lC', {noremap = true})
 map('i', 'hh', '=>', {noremap = true})
-map('n', '<leader>cp', ':let @+-expand("%")<CR>')
 
-map('', ';w', ':set wrap!')
-map('', ';v', ':set paste!')
+-- map('n', '<leader>cp', ':let @+-expand("%")<CR>')
+
+map('', ';w', ':set wrap!<CR>')
+map('', ';v', ':set paste!<CR>')
 
 -- Search command shortcut
 map('n', '<Leader>s', ':Search<Space>')
@@ -121,10 +123,10 @@ map('n', 'go', 'o<esc>')
 map('n', 'gO', 'O<esc>')
 
 -- Yank from the cursor to the end of the line, to be consistent with C and D.
-map('n', 'Y', 'y$', { noremap = true })
+-- map('n', 'Y', 'y$', { noremap = true })
 
 -- clean up trailing whitespace
-map('n', '<Leader>c', ':StripWhitespace<cr>')
+-- map('n', '<Leader>c', ':StripWhitespace<cr>')
 
 -- delete all buffers
 map('n', '<Leader>d', ':bufdo bd<cr>')
@@ -144,6 +146,13 @@ vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") < line("$") | ex
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 
 vim.cmd('colorscheme iceberg')
+
+if(utils.platform() == 'Linux') then
+	require('linux')
+elseif(utils.platform() == 'Darwin') then
+	require('darwin')
+end
+-- require(platform:lower())
 
 -- Create a search command that uses Ripgrep and offers previews
 local search_command = "command! -bang -complete=file -nargs=* Search call fzf#vim#grep('rg --column --line-number --no-heading --color=always '.<q-args>, 1, <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)"
