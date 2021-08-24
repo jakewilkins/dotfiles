@@ -76,7 +76,16 @@ return require('packer').startup({function()
 	-- All hail @tpope
 	use {
 		'tpope/vim-bundler',
-		'tpope/vim-fugitive',
+		{ 'tpope/vim-fugitive',
+			config = function()
+				local utils = require('config.utils') -- lua/config/utils.lua
+				local map = utils.map
+
+				map('c', 'gs', 'Gstatus', { noremap = true })
+        map('c', 'gc', 'Gcommit', { noremap = true })
+        map('', '<leader>d', ':diffoff<CR>')
+			end,
+	  },
 		{ 'tpope/vim-rails' },
 		{
 			'tpope/vim-rake',
@@ -115,7 +124,19 @@ return require('packer').startup({function()
   use "joker1007/vim-ruby-heredoc-syntax"
   use "rizzatti/funcoo.vim"
   use "rking/vim-detailed"
-  use "janko/vim-test"
+  use {
+		"vim-test/vim-test",
+		config = function()
+			local utils = require('config.utils') -- lua/config/utils.lua
+			local map = utils.map
+
+			map('n', '<Leader>t', ':TestNearest<CR>')
+			map('n', '<Leader>T', ':TestFile<CR>')
+			map('n', '<Leader>q', ':ccl<CR>')
+			vim.g['dispatch_tmux_height'] = 25
+			vim.g['test#strategy'] = "dispatch"
+		end,
+	}
   use "vim-scripts/L9"
   use {
     "scrooloose/nerdcommenter",
