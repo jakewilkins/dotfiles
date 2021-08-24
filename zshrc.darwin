@@ -16,3 +16,5 @@ complete -o nospace -C /Users/jakewilkins/bin/hubbers hubbers
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
+
+alias ssh="TERM=xterm-256color ssh"
