@@ -7,13 +7,18 @@ alias beans="echo bruh"
 
 export GPG_TTY=$(tty)
 
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-
-whence _apptokit_wrapper 2>&1 >/dev/null || eval "$(/usr/local/lib/apptokit/bin/apptokit shell-setup -)"
+whence apptokit
+if [ "$?" == "0" ]; then
+	whence _apptokit_wrapper 2>&1 >/dev/null || eval "$(apptokit shell-setup -)"
+fi
 
 if [[ $PATH != *"/home/linuxbrew/.linuxbrew/sbin"* ]]; then
   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 
-. /usr/local/lib/z.sh
+if [ $CODESPACES ]; then
+	. /home/linuxbrew/.linuxbrew/etc/profile.d/z.sh
+else
+	. /usr/local/lib/z.sh
+fi
 
