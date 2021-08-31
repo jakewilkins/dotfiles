@@ -121,9 +121,10 @@ fi
 # the attributes set in /etc/gitconfig we have to explicitly include the path.
 if [ $CODESPACES ]; then
 	git config --global include.path /etc/gitconfig
-	alias setup-ssh-codespace="$(pwd)/script/install-brew-dependencies"
 fi
 
-echo "Installing vim plugins"
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+hash nvim 2>/dev/null && {
+	echo "Installing vim plugins"
+	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+}
 

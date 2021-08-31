@@ -13,13 +13,16 @@ if [[ "$?" == "0" ]]; then
 fi
 
 if [[ $PATH != *"/home/linuxbrew/.linuxbrew/sbin"* ]]; then
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+	if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+		eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+	fi
 fi
 
 if [ $CODESPACES ]; then
 	[ -f "/home/linuxbrew/.linuxbrew/etc/profile.d/z.sh" ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/z.sh
 
 	alias cdd="cd /workspaces/.codespaces/.persistedshare/dotfiles"
+	alias setup-ssh-codespace="$HOME/.dotfiles/script/setup-ssh-codespace"
 else
 	. /usr/local/lib/z.sh
 fi
