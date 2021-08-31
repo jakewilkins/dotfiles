@@ -80,9 +80,14 @@ return require('packer').startup({function()
 			config = function()
 				local utils = require('config.utils') -- lua/config/utils.lua
 				local map = utils.map
+				local vim_exec = utils.vim_exec
 
-				map('c', 'gs', 'Gstatus', { noremap = true })
-        map('c', 'gc', 'Gcommit', { noremap = true })
+				vim_exec([[
+					cnorea gs Gstatus
+					cnorea gc Gcommit
+				]])
+				-- abbrev('gs', 'Gstatus')
+        -- abbrev('gc', 'Gcommit')
         map('', '<leader>d', ':diffoff<CR>')
 			end,
 	  },

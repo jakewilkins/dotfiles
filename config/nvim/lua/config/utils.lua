@@ -20,4 +20,12 @@ local function platform()
 	return platform:gsub("\n", "")
 end
 
-return {map = map, map_lua = map_lua, platform = platform}
+local function abbrev(keys, action)
+  vim.api.nvim_exec("cnorea " .. keys .. action, false)
+end
+
+local function vim_exec(string)
+  vim.api.nvim_exec(string, false)
+end
+
+return {map = map, map_lua = map_lua, platform = platform, abbrev = abbrev, vim_exec = vim_exec}
