@@ -2,4 +2,10 @@
 
 ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
 
-$HOME/.config/script/install-brew-dependencies
+sudo apt install jq luajit fzf ripgrep tmux
+
+#$HOME/.config/script/install-brew-dependencies
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+
+mv ./nvim.appimage /usr/bin/nvim
