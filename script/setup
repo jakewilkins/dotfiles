@@ -110,6 +110,7 @@ echo "Symlinking dotfiles dir"
 ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
 
 if [ $LINUX ]; then
+	echo "Installing Linux build essentials"
 	sudo apt-get update -y && sudo apt-get install -y build-essential procps curl file git
 fi
 
@@ -127,4 +128,6 @@ hash nvim 2>/dev/null && {
 	echo "Installing vim plugins"
 	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 }
+
+echo "Done"
 

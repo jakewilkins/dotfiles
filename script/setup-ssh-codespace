@@ -6,13 +6,13 @@ sudo apt install jq luajit fzf ripgrep tmux
 
 #$HOME/.config/script/install-brew-dependencies
 hash nvim 2>/dev/null || {
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-chmod u+x nvim.appimage
+	curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+	chmod u+x nvim.appimage
 
-./nvim.appimage --appimage-extract
+	./nvim.appimage --appimage-extract
 
-sudo mv squashfs-root /
-sudo ln -fs /squashfs-root/AppRun /usr/local/bin/nvim
+	sudo mv squashfs-root /
+	sudo ln -fs /squashfs-root/AppRun /usr/local/bin/nvim
 }
 
 echo "Installing vim plugins"
