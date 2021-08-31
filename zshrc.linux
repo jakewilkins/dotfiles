@@ -7,8 +7,8 @@ alias beans="echo bruh"
 
 export GPG_TTY=$(tty)
 
-whence apptokit
-if [ "$?" == "0" ]; then
+whence apptokit 2>&1 >/dev/null
+if [[ "$?" == "0" ]]; then
 	whence _apptokit_wrapper 2>&1 >/dev/null || eval "$(apptokit shell-setup -)"
 fi
 
