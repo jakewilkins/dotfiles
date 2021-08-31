@@ -91,7 +91,7 @@ if [ $LINUX ]; then
 	echo "Symlinking linux specific files"
 	ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
 	if [ $CODESPACES ]; then
-		ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
+		ln -fs "$HOME/.config/p10k/p10k.zsh.codespaces" "$HOME/.p10k.zsh"
 	else
 		ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
 	fi
