@@ -204,7 +204,7 @@ alias ls="ls -G"
 
 alias rt="./bin/rails test -p "
 
-source "$HOME/.fzf.zsh"
+[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 
 source "$HOME/.dotfiles/system.zshrc"
 

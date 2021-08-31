@@ -76,8 +76,32 @@ done
 [ $(uname -s) = "Linux" ] && export LINUX=1
 [ $(uname -s) = "Darwin" ] && export DARWIN=1
 
+if [ $CODESPACES ]; then
+	ln -fs "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
+else
+	symlink_without_overwriting "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
+fi
+
 if [ $LINUX ]; then
-	apt-get update -y && apt-get install -y build-essential procps curl file git
+	echo "Symlinking linux specific files"
+	ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
+	ln -fs "$(pwd)/p10k.zsh.linux" "$HOME/.p10k.zsh"
+elif [ $DARWIN ]; then
+	echo "Symlinking darwin specific files"
+	ln -fs "$(pwd)/zshrc.darwin" "$(pwd)/system.zshrc"
+	ln -fs "$(pwd)/p10k.zsh.darwin" "$HOME/.p10k.zsh"
+fi
+
+if [ "$SHELL" != "/bin/zsh" ]; then
+	echo "Switching shell to zsh"
+	sudo chsh -s $(which zsh)
+fi
+
+echo "Symlinking dotfiles dir"
+ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
+
+if [ $LINUX ]; then
+	sudo apt-get update -y && sudo apt-get install -y build-essential procps curl file git
 fi
 
 if hash brew 2>/dev/null; then
@@ -109,14 +133,10 @@ else
 fi
 
 if [ ! -f "$HOME/.fzf.zsh" ]; then
-	$(brew --prefix)/opt/fzf/install --all --key-bindings --completion --no-update --no-fish --no-bash
+	$(brew --prefix)/opt/fzf/install --all --key-bindings --completion --no-update-rc --no-fish --no-bash
 fi
 
 [ ! -f "$HOME/.z" ] && touch "$HOME/.z"
-
-# Bring in all of our submodule dependencies
-echo "Installing Git submodules"
-git submodule init && git submodule update --depth 5
 
 # Codespaces has a .gitconfig already setup, but in order to take advantage of
 # the attributes set in /etc/gitconfig we have to explicitly include the path.
@@ -124,29 +144,6 @@ if [ $CODESPACES ]; then
 	git config --global include.path /etc/gitconfig
 fi
 
-if [ $CODESPACES ]; then
-	ln -fs "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
-else
-	symlink_without_overwriting "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
-fi
-
 echo "Installing vim plugins"
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-echo "Symlinking dotfiles dir"
-ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
-
-if [ $LINUX ]; then
-	echo "Symlinking linux specific files"
-	ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
-	ln -fs "$(pwd)/p10k.zsh.linux" "$HOME/.p10k.zsh"
-elif [ $DARWIN ]; then
-	echo "Symlinking darwin specific files"
-	ln -fs "$(pwd)/zshrc.darwin" "$(pwd)/system.zshrc"
-	ln -fs "$(pwd)/p10k.zsh.darwin" "$HOME/.p10k.zsh"
-fi
-
-if [ "$SHELL" != "/bin/zsh" ]; then
-	echo "Switching shell to zsh"
-	sudo chsh -s $(which zsh)
-fi

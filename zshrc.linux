@@ -17,7 +17,7 @@ if [[ $PATH != *"/home/linuxbrew/.linuxbrew/sbin"* ]]; then
 fi
 
 if [ $CODESPACES ]; then
-	. /home/linuxbrew/.linuxbrew/etc/profile.d/z.sh
+	[ -f "/home/linuxbrew/.linuxbrew/etc/profile.d/z.sh" ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/z.sh
 
 	alias cdd="cd /workspaces/.codespaces/.persistedshare/dotfiles"
 else
