@@ -146,9 +146,12 @@ vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") < line("$") | ex
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 
 vim.api.nvim_exec([[
-if findfile("colors/iceber.vim", &rtp) != ""
-    execute "colorscheme iceberg"
-endif
+try
+  colorscheme iceberg
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme default
+  set background=dark
+endtry
 ]], false)
 
 if(utils.platform() == 'Linux') then
