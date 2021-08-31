@@ -18,6 +18,8 @@ fi
 
 if [ $CODESPACES ]; then
 	. /home/linuxbrew/.linuxbrew/etc/profile.d/z.sh
+
+	alias cdd="cd /workspaces/.codespaces/.persistedshare/dotfiles"
 else
 	. /usr/local/lib/z.sh
 fi
