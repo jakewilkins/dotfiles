@@ -9,7 +9,6 @@ source ~/.dotfiles/powerlevel10k/powerlevel10k.zsh-theme
 autoload -Uz compinit
 compinit
 
-
 alias c='clear'
 alias cp="cp -v"
 alias mv="mv -v"
@@ -204,6 +203,8 @@ export EDITOR='vim'
 alias ls="ls -G"
 
 alias rt="./bin/rails test -p "
+
+source "$HOME/.fzf.zsh"
 
 source "$HOME/.dotfiles/system.zshrc"
 
