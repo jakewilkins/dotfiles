@@ -118,8 +118,15 @@ if [ $CODESPACES ]; then
 	git config --global include.path /etc/gitconfig
 fi
 
+if [ $CODESPACES ]; then
+	rm ~/.zshrc
+	ln -s "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
+else
+	symlink_without_overwriting "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
+fi
+
 echo "Installing vim plugins"
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+# nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 echo "Symlinking dotfiles dir"
 ln -s "$DOTFILES_PATH" "$HOME/.dotfiles"
