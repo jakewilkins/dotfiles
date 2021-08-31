@@ -145,7 +145,11 @@ vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") < line("$") | ex
 -- recompile packer on save of plugins.lua
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 
-vim.cmd('colorscheme iceberg')
+vim.api.nvim_exec([[
+if findfile("colors/iceber.vim", &rtp) != ""
+    execute "colorscheme iceberg"
+endif
+]], false)
 
 if(utils.platform() == 'Linux') then
 	require('linux')
