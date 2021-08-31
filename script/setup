@@ -8,59 +8,59 @@ SETUP_DIRECTORY=$(dirname $SCRIPT_SETUP)
 cd $SETUP_DIRECTORY/..
 DOTFILES_PATH=$(pwd -P)
 
-FILES_TO_SYMLINK=(config gemrc pryrc tmux tmux-macos.conf tmux.conf)
+FILES_TO_SYMLINK=(config gemrc pryrc tmux tmux.conf)
 
 function symlink_without_overwriting() {
-  local source_path=$1
-  local destination_path=$2
+	local source_path=$1
+	local destination_path=$2
 
-  if [ -d "$source_path" ]; then
-    file_type="directory"
-    same_type_flag="-d"
-    wrong_type_flag="-f"
-  else
-    file_type="file"
-    same_type_flag="-f"
-    wrong_type_flag="-d"
-  fi
+	if [ -d "$source_path" ]; then
+		file_type="directory"
+		same_type_flag="-d"
+		wrong_type_flag="-f"
+	else
+		file_type="file"
+		same_type_flag="-f"
+		wrong_type_flag="-d"
+	fi
 
-  if [ $wrong_type_flag "$destination_path" ]; then
-    echo "$destination_path already exists and is not a $file_type, please figure out what you want done with that and re-run this script."
-    exit 1
-  elif [ $same_type_flag "$destination_path" ]; then
-    if [ -L "$destination_path" ]; then
-      destination=$(readlink $destination_path)
-      if [ "$destination" = "$source_path" ]; then
-        echo "$source_path is already symlinked to $destination"
-      else
-        echo "$destination_path exists as a symlink to something else, please figure out what you want done with that and re-run this script."
-        exit 1
-      fi
-    else
-      echo "$destination_path exists as a regular $file_type, please figure out what you want done with that and re-run this script."
-      exit 1
-    fi
-  else
-    ln -sfv $source_path $destination_path
-  fi
+	if [ $wrong_type_flag "$destination_path" ]; then
+		echo "$destination_path already exists and is not a $file_type, please figure out what you want done with that and re-run this script."
+		exit 1
+	elif [ $same_type_flag "$destination_path" ]; then
+		if [ -L "$destination_path" ]; then
+			destination=$(readlink $destination_path)
+			if [ "$destination" = "$source_path" ]; then
+				echo "$source_path is already symlinked to $destination"
+			else
+				echo "$destination_path exists as a symlink to something else, please figure out what you want done with that and re-run this script."
+				exit 1
+			fi
+		else
+			echo "$destination_path exists as a regular $file_type, please figure out what you want done with that and re-run this script."
+			exit 1
+		fi
+	else
+		ln -sfv $source_path $destination_path
+	fi
 }
 
 # If the config directory already exists, then just symlink all of
 # the contents instead.
 if [ -L "${HOME}/.config" ]; then
-  destination=$(readlink "${HOME}/.config")
-  if [ "$destination" = "$DOTFILES_PATH/config" ]; then
-    echo "config dir is already symlinked to dotfiles."
-    unset FILES_TO_SYMLINK[0]
-  else
-    echo "config dir is symlinked to something else, figure that out and re-run this script."
-    exit 1
-  fi
+	destination=$(readlink "${HOME}/.config")
+	if [ "$destination" = "$DOTFILES_PATH/config" ]; then
+		echo "config dir is already symlinked to dotfiles."
+		unset FILES_TO_SYMLINK[0]
+	else
+		echo "config dir is symlinked to something else, figure that out and re-run this script."
+		exit 1
+	fi
 elif [ -d "${HOME}/.config" ]; then
 	for CONFIG_FILE in $DOTFILES_PATH/config/*; do
-    destination_path="$HOME/.config/$(basename $CONFIG_FILE)"
-    symlink_without_overwriting $CONFIG_FILE $destination_path
-  done
+		destination_path="$HOME/.config/$(basename $CONFIG_FILE)"
+		symlink_without_overwriting $CONFIG_FILE $destination_path
+	done
 
 
 	# Remove config from list since we've symlinked the contents.
@@ -68,9 +68,9 @@ elif [ -d "${HOME}/.config" ]; then
 fi
 
 for FILE in "${FILES_TO_SYMLINK[@]}"; do
-  source_path="${DOTFILES_PATH}/${FILE}"
-  dest_path="${HOME}/.${FILE}"
-  symlink_without_overwriting $source_path $dest_path
+	source_path="${DOTFILES_PATH}/${FILE}"
+	dest_path="${HOME}/.${FILE}"
+	symlink_without_overwriting $source_path $dest_path
 done
 
 [ $(uname -s) = "Linux" ] && export LINUX=1
@@ -81,26 +81,31 @@ if [ $LINUX ]; then
 fi
 
 if hash brew 2>/dev/null; then
-  echo "Brew is installed"
+	echo "Brew is installed"
 else
 	echo installing brew?
-  CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  if [ $LINUX ]; then
-    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "${HOME}/.profile"
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-  fi
+	if [ $LINUX ]; then
+		echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "${HOME}/.profile"
+		eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+	fi
 fi
 
 echo "Installing global brew dependencies"
-brew bundle --file ./homebrew/Brewfile
 
-if [ $LINUX ]; then
-  echo "Installing Linux dependencies"
-	brew bundle --file homebrew/Brewfile.linux
-elif [ $DARWIN ]; then
-  echo "Installing Darwin dependencies"
-	brew bundle --file homebrew/Brewfile.darwin
+if [ $CODESPACES ]; then
+	brew bundle --file ./hombrew/Brewfile
+else
+	brew bundle --file ./homebrew/Brewfile
+
+	if [ $LINUX ]; then
+		echo "Installing Linux dependencies"
+		brew bundle --file homebrew/Brewfile.linux
+	elif [ $DARWIN ]; then
+		echo "Installing Darwin dependencies"
+		brew bundle --file homebrew/Brewfile.darwin
+	fi
 fi
 
 # Bring in all of our submodule dependencies
@@ -117,19 +122,19 @@ echo "Installing vim plugins"
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 echo "Symlinking dotfiles dir"
-ln -s "$(pwd)" "$HOME/.dotfiles"
+ln -s "$DOTFILES_PATH" "$HOME/.dotfiles"
 
 if [ $LINUX ]; then
-  echo "Symlinking linux specific files"
-  ln -s "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
-  ln -s "$(pwd)/p10k.zsh.linux" "$HOME/.p10k.zsh"
+	echo "Symlinking linux specific files"
+	ln -s "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
+	ln -s "$(pwd)/p10k.zsh.linux" "$HOME/.p10k.zsh"
 elif [ $DARWIN ]; then
-  echo "Symlinking darwin specific files"
-  ln -s "$(pwd)/zshrc.darwin" "$(pwd)/system.zshrc"
-  ln -s "$(pwd)/p10k.zsh.darwin" "$HOME/.p10k.zsh"
+	echo "Symlinking darwin specific files"
+	ln -s "$(pwd)/zshrc.darwin" "$(pwd)/system.zshrc"
+	ln -s "$(pwd)/p10k.zsh.darwin" "$HOME/.p10k.zsh"
 fi
 
 if [ "$SHELL" != "/bin/zsh" ]; then
-  echo "Switching shell to zsh"
-  sudo chsh -s $(which zsh)
+	echo "Switching shell to zsh"
+	sudo chsh -s $(which zsh)
 fi
