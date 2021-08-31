@@ -108,6 +108,10 @@ else
 	fi
 fi
 
+if [ ! -f "$HOME/.fzf.zsh" ]; then
+	$(brew --prefix)/opt/fzf/install --all --key-bindings --completion --no-update --no-fish --no-bash
+fi
+
 # Bring in all of our submodule dependencies
 echo "Installing Git submodules"
 git submodule init && git submodule update --depth 5
