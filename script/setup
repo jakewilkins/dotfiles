@@ -112,6 +112,8 @@ if [ ! -f "$HOME/.fzf.zsh" ]; then
 	$(brew --prefix)/opt/fzf/install --all --key-bindings --completion --no-update --no-fish --no-bash
 fi
 
+[ ! -f "$HOME/.z" ] && touch "$HOME/.z"
+
 # Bring in all of our submodule dependencies
 echo "Installing Git submodules"
 git submodule init && git submodule update --depth 5
@@ -129,7 +131,7 @@ else
 fi
 
 echo "Installing vim plugins"
-# nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 echo "Symlinking dotfiles dir"
 ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
