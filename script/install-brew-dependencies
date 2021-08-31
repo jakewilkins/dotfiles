@@ -1,5 +1,8 @@
 #!/bin/bash
 
+[ $(uname -s) = "Linux" ] && export LINUX=1
+[ $(uname -s) = "Darwin" ] && export DARWIN=1
+
 if hash brew 2>/dev/null; then
 	echo "Brew is installed"
 else

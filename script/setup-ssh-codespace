@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
+
+$HOME/.config/script/install-brew-dependencies

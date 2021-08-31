@@ -90,11 +90,15 @@ fi
 if [ $LINUX ]; then
 	echo "Symlinking linux specific files"
 	ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
-	ln -fs "$(pwd)/p10k.zsh.linux" "$HOME/.p10k.zsh"
+	if [ $CODESPACES ]; then
+		ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
+	else
+		ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
+	fi
 elif [ $DARWIN ]; then
 	echo "Symlinking darwin specific files"
 	ln -fs "$(pwd)/zshrc.darwin" "$(pwd)/system.zshrc"
-	ln -fs "$(pwd)/p10k.zsh.darwin" "$HOME/.p10k.zsh"
+	ln -fs "$HOME/.config/p10k/p10k.zsh.darwin" "$HOME/.p10k.zsh"
 fi
 
 if [ "$SHELL" != "/bin/zsh" ]; then
