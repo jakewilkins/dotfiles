@@ -95,7 +95,7 @@ fi
 echo "Installing global brew dependencies"
 
 if [ $CODESPACES ]; then
-	brew bundle --file ./hombrew/Brewfile
+	brew bundle --file ./hombrew/Brewfile.codespaces
 else
 	brew bundle --file ./homebrew/Brewfile
 
