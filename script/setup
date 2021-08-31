@@ -119,8 +119,7 @@ if [ $CODESPACES ]; then
 fi
 
 if [ $CODESPACES ]; then
-	rm ~/.zshrc
-	ln -s "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
+	ln -fs "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
 else
 	symlink_without_overwriting "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
 fi
@@ -129,16 +128,16 @@ echo "Installing vim plugins"
 # nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 echo "Symlinking dotfiles dir"
-ln -s "$DOTFILES_PATH" "$HOME/.dotfiles"
+ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
 
 if [ $LINUX ]; then
 	echo "Symlinking linux specific files"
-	ln -s "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
-	ln -s "$(pwd)/p10k.zsh.linux" "$HOME/.p10k.zsh"
+	ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
+	ln -fs "$(pwd)/p10k.zsh.linux" "$HOME/.p10k.zsh"
 elif [ $DARWIN ]; then
 	echo "Symlinking darwin specific files"
-	ln -s "$(pwd)/zshrc.darwin" "$(pwd)/system.zshrc"
-	ln -s "$(pwd)/p10k.zsh.darwin" "$HOME/.p10k.zsh"
+	ln -fs "$(pwd)/zshrc.darwin" "$(pwd)/system.zshrc"
+	ln -fs "$(pwd)/p10k.zsh.darwin" "$HOME/.p10k.zsh"
 fi
 
 if [ "$SHELL" != "/bin/zsh" ]; then
