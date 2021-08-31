@@ -1,0 +1,39 @@
+#!/bin/bash
+
+if hash brew 2>/dev/null; then
+	echo "Brew is installed"
+else
+	if [[ ! $LINUX || $CODESPACES ]]; then
+		echo "Installing homebrew"
+		CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+		if [ $LINUX ]; then
+			echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "${HOME}/.profile"
+			eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+		fi
+	else
+		echo "We're on linux but not in a Codespace, skipping brew installation"
+		exit 1
+	fi
+fi
+
+echo "Installing global brew dependencies"
+
+if [ $CODESPACES ]; then
+	brew bundle --file ./homebrew/Brewfile.codespaces
+else
+	brew bundle --file ./homebrew/Brewfile
+
+	if [ $LINUX ]; then
+		echo "Installing Linux dependencies"
+		brew bundle --file homebrew/Brewfile.linux
+	elif [ $DARWIN ]; then
+		echo "Installing Darwin dependencies"
+		brew bundle --file homebrew/Brewfile.darwin
+	fi
+fi
+
+if [ ! -f "$HOME/.fzf.zsh" ]; then
+	$(brew --prefix)/opt/fzf/install --all --key-bindings --completion --no-update-rc --no-fish --no-bash
+fi
+
