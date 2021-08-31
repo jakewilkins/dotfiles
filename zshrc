@@ -9,7 +9,6 @@ source ~/.dotfiles/powerlevel10k/powerlevel10k.zsh-theme
 autoload -Uz compinit
 compinit
 
-. /usr/local/etc/profile.d/z.sh
 
 alias c='clear'
 alias cp="cp -v"

@@ -3,6 +3,8 @@
 hash kitty 2>/dev/null && kitty + complete setup zsh | source /dev/stdin
 alias icat="kitty +kitten icat"
 
+. /usr/local/etc/profile.d/z.sh
+
 alias ip='ipconfig getifaddr en0'
 
 alias ql='qlmanage -p'
