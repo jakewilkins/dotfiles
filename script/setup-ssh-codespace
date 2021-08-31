@@ -8,4 +8,10 @@ sudo apt install jq luajit fzf ripgrep tmux
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
 
-mv ./nvim.appimage /usr/bin/nvim
+./nvim.appimage --appimage-extract
+
+sudo mv squashfs-root /
+sudo ln -fs /squashfs-root/AppRun /usr/local/bin/nvim
+
+echo "Installing vim plugins"
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'

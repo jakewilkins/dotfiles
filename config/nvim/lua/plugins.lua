@@ -85,7 +85,9 @@ return require('packer').startup({function()
 				vim_exec([[
 					cnorea gs Gstatus
 					cnorea gc Gcommit
+					set statusline += "%{fugitive#statusline()}"
 				]])
+				-- vim.opt.statusline.concat("")
 				-- abbrev('gs', 'Gstatus')
         -- abbrev('gc', 'Gcommit')
         map('', '<leader>d', ':diffoff<CR>')
