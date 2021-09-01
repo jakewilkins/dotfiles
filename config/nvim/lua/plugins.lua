@@ -51,6 +51,44 @@ return require('packer').startup({function()
 		requires = { 'junegunn/fzf.vim' },
 	}
 
+	use {
+		'preservim/tagbar',
+		config = function()
+			local utils = require('config.utils') -- lua/config/utils.lua
+			local map = utils.map
+			local vim_exec = utils.vim_exec
+
+			map('n', '<C-L>', ':TagbarToggle<cr>', { noremap = true })
+
+			vim.g['tagbar_autofocus'] = 1
+			vim.g['tagbar_autoclose'] = 1
+			vim.g['tagbar_left'] = 1
+
+			-- " allows for rules and ctags extending
+			-- vim_exec([[
+			--   let g:tagbar_type_ruby = {
+			--       \ 'kinds' : [
+			--           \ 'm:modules',
+			--           \ 'c:classes',
+			--           \ 'd:describes',
+			--           \ 'C:contexts',
+			--           \ 'f:methods',
+			--           \ 'F:singleton methods',
+			--           \ 't:task',
+			--           \ 'o:on',
+			--           \ 'g:get',
+			--           \ 'p:post',
+			--           \ 'u:put',
+			--           \ 'a:patch',
+			--           \ 'e:delete',
+			--           \ 'i:options',
+			--           \ 's:test',
+			--       \ ]
+			--   \ }
+			-- ]])
+		end,
+  }
+
 	-- use {
 	--   'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
 	--   config = function() require('gitsigns').setup() end
