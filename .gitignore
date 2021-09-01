@@ -38,4 +38,3 @@ tmux/resurrect/last
 tmux/resurrect/*.txt
 tmux/plugins/*
 system.zshrc
-bin
