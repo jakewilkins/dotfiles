@@ -16,3 +16,6 @@
 [submodule "powerlevel10k"]
 	path = powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "bin"]
+	path = bin
+	url = https://github.com/jakewilkins/bin

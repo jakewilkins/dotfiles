@@ -78,6 +78,8 @@ for FILE in "${FILES_TO_SYMLINK[@]}"; do
 	symlink_without_overwriting $source_path $dest_path
 done
 
+symlink_without_overwriting "$DOTFILES_PATH/bin" "$HOME/bin"
+
 [ $(uname -s) = "Linux" ] && export LINUX=1
 [ $(uname -s) = "Darwin" ] && export DARWIN=1
 
