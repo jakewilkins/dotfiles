@@ -4,7 +4,9 @@ ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
 
 sudo apt install jq luajit fzf ripgrep tmux
 
-git clone ssh://github.com:/jakewilkins/bin bin-repo
+token=$(bin-repo-device-flow)
+
+git clone "https://x-oauth-token:${token}@github.com/jakewilkins/bin" bin-repo
 rm -rf bin
 mv bin-repo bin
 

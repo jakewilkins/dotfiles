@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+require "net/http"
+require "json"
+
+CLIENT_ID = "Iv1.dd5706e72cfeb9d8"
+ENTRY_URI = URI("https://github.com/login/device/code")
+POLL_URI = URI("https://github.com/login/oauth/access_token")
+
+def parse_response(http_result)
+  case http_result
+  when Net::HTTPOK, Net::HTTPCreated
+    JSON.parse(http_result.body)
+  when String
+    JSON.parse(http_result)
+  else
+    puts "request failed: #{http_result}"
+    exit 2
+  end
+end
+
+entry_params = URI.encode_www_form("client_id" => CLIENT_ID)
+headers = {"Accept" => "application/json"}
+json = parse_response(Net::HTTP.post(ENTRY_URI, entry_params, headers))
+
+$stderr.puts "Please visit the blow URL:"
+$stderr.puts "   #{json['verification_uri']}"
+$stderr.puts "\n   And enter:"
+$stderr.puts "         #{json['user_code']}"
+
+poll_params = URI.encode_www_form({
+  "client_id" => CLIENT_ID,
+  "device_code" => json["device_code"],
+  "grant_type" => "urn:ietf:params:oauth:grant-type:device_code"
+})
+interval = 5
+
+loop do
+  poll_result = Net::HTTP.post(POLL_URI, poll_params, headers)
+  poll_response = parse_response(poll_result)
+
+  if poll_response.key?("error")
+    case poll_response["error"]
+    when "authorization_pending"
+      sleep interval
+      next
+    when "slow_down"
+      interval = poll_response["interval"]
+      sleep interval
+      next
+    end
+  end
+  puts poll_response['access_token']
+
+  break
+end
