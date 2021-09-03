@@ -121,8 +121,9 @@ return require('packer').startup({function()
 						local vim_exec = utils.vim_exec
 
 						vim_exec([[
-						cnorea gs Gstatus
+						cnorea gs Git
 						cnorea gc Gcommit
+						cnorea gb GBrowse
 						set statusline += "%{fugitive#statusline()}"
 						]])
 						-- vim.opt.statusline.concat("")
