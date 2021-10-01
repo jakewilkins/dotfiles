@@ -3,6 +3,8 @@ alias ip='ip -4 a show enp4s0'
 
 alias cgh='cd /home/workspace/github'
 
+alias ls='ls --color=auto'
+
 alias beans="echo bruh"
 
 export GPG_TTY=$(tty)

@@ -9,6 +9,11 @@ source ~/.dotfiles/powerlevel10k/powerlevel10k.zsh-theme
 autoload -Uz compinit
 compinit
 
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+export HISTSIZE=2000
+export HISTFILE="$HOME/.zhistory"
+
 alias c='clear'
 alias cp="cp -v"
 alias mv="mv -v"

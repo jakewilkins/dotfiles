@@ -52,17 +52,27 @@ return require('packer').startup({function()
 	}
 
 	use {
+		-- 'liuchengxu/vista.vim',
 		'preservim/tagbar',
+		setup = function()
+			vim.g['tagbar_ctags_bin'] = '/usr/local/bin/ctags'
+		end,
 		config = function()
+			-- vim.cmd('TagbarDebug')
 			local utils = require('config.utils') -- lua/config/utils.lua
 			local map = utils.map
 			local vim_exec = utils.vim_exec
 
 			map('n', '<C-L>', ':TagbarToggle<cr>', { noremap = true })
+			-- map('n', '<C-L>', ':Vista!!<cr>', { noremap = true })
 
 			vim.g['tagbar_autofocus'] = 1
 			vim.g['tagbar_autoclose'] = 1
 			vim.g['tagbar_left'] = 1
+			vim.g['tagbar_ctags_bin'] = '/usr/local/bin/ctags'
+			-- vim.g['vista#renderer#enable_icon'] = 1
+			-- vim.g['vista_fzf_preview'] = {'left:50%'}
+			-- vim.g['vista_default_executive'] = 'ctags'
 
 			-- " allows for rules and ctags extending
 			-- vim_exec([[
