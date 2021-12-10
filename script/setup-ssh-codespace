@@ -7,7 +7,7 @@ sudo apt install -y jq luajit fzf ripgrep tmux
 cd ~
 
 git clone "https://x-oauth-token:${token}@github.com/jakewilkins/bin" bin-repo
-mv ./bin/git-credential-github-keychain ./bin-repo
+mv ./bin/git-credential-github-keychain ./bin-repo/
 rm -rf bin
 mv bin-repo bin
 
