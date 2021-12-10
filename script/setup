@@ -89,9 +89,20 @@ else
 	symlink_without_overwriting "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
 fi
 
+hash git-credential-github-keychain 2>/dev/null || {
+	url="https://github.com/jakewilkins/git-credential-github-keychain/releases/download/release-4fcc910d693bb69388bdc2303e3b5d1ae8df365b/${`uname -s` | tr '[:upper:]' '[:lower:]'}-compiled-version.zip"
+
+	curl -Lo credential-helper.zip "$url"
+	unzip credential-helper.zip
+	mv -v git-credential-github-keychain ./bin/
+	chmod u+x ./bin/git-credential-github-keychain
+	rm credential-helper.zip
+}
+
 if [ $LINUX ]; then
 	echo "Symlinking linux specific files"
 	ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
+	ln -fs "$HOME/.config/github-keychain/default-config.linux.toml" "$HOME/.config/github-keychain/default-config.toml"
 	if [ $CODESPACES ]; then
 		ln -fs "$HOME/.config/p10k/p10k.zsh.codespaces" "$HOME/.p10k.zsh"
 	else
@@ -101,6 +112,7 @@ elif [ $DARWIN ]; then
 	echo "Symlinking darwin specific files"
 	ln -fs "$(pwd)/zshrc.darwin" "$(pwd)/system.zshrc"
 	ln -fs "$HOME/.config/p10k/p10k.zsh.darwin" "$HOME/.p10k.zsh"
+	ln -fs "$HOME/.config/github-keychain/default-config.darwin.toml" "$HOME/.config/github-keychain/default-config.toml"
 fi
 
 if [ "$SHELL" != "/bin/zsh" ]; then
