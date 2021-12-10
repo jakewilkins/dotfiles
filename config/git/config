@@ -76,5 +76,8 @@
 [push]
 	default = current
 
+[credential]
+	helper = github-keychain
+
 [protocol]
 	version = 2
