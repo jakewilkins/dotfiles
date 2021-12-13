@@ -91,7 +91,7 @@ fi
 
 hash git-credential-github-keychain 2>/dev/null || {
 	system=$(uname -s | tr '[:upper:]' '[:lower:]')
-	url="https://github.com/jakewilkins/git-credential-github-keychain/releases/download/release-4fcc910d693bb69388bdc2303e3b5d1ae8df365b/$system-git-credential-github-keychain.zip"
+	url="https://github.com/jakewilkins/git-credential-github-keychain/releases/download/release-5080854212a96ea7ee96123e642a72bbca0ae55e/$system-git-credential-github-keychain.zip"
 
 	curl -Lo credential-helper.zip "$url"
 	unzip credential-helper.zip
