@@ -43,7 +43,7 @@ return require('packer').startup({function()
 			map('n', 'Kk', ':Rg <C-R><C-W>')
 			map('n', 'KD', ':Rg def (self\\.)?<C-R><C-W><CR>')
 			map('n', 'KC', ':Rg class ([A-Za-z]+::)*<C-R><C-W><CR>')
-			map('n', 'KC', ':Rg module ([A-Za-z]+::)*<C-R><C-W><CR>')
+			map('n', 'KM', ':Rg module ([A-Za-z]+::)*<C-R><C-W><CR>')
 		end,
 		run = function()
 			vim.fn['fzf#install']()
