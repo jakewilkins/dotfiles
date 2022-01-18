@@ -137,6 +137,7 @@ map('n', '<LEADER><SPACE>', ':noh<CR>', { noremap = true })
 -- fast access to the :
 map('n', '<Space>', ':', { noremap = true })
 
+map('n', '<ctrl>k', ':vertical wincmd f <cr>', { noremap = false })
 -- COMMANDS
 
 -- remember the last position in file
