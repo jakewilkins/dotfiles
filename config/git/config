@@ -61,11 +61,9 @@
 [include]
 	path = ~/.config/git/personal
 
-[includeIf "gitdir:/Users"]
-	path = ~/.config/git/config-macos
-
-# [includeIf "gitdir:/home"]
-# 	path = ~/.gitconfig-linux
+[user]
+	email = "jakewilkins@github.com"
+	name = "Jake Wilkins"
 
 [init]
 	defaultBranch = main
