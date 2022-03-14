@@ -103,7 +103,13 @@ if [ $LINUX ]; then
 	echo "Symlinking linux specific files"
 	ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
 	ln -fs "$HOME/.config/github-keychain/default-config.linux.toml" "$HOME/.config/github-keychain/default-config.toml"
+
 	if [ $CODESPACES ]; then
+		if [[ "$GITHUB_REPOSITORY" == "github/github" ]]; then
+			git config --global credential.helper /workspaces/.codespaces/.persistedshare/dotfiles/bin/git-credential-github-keychain
+			git config --global credential.useHttpPath true
+			ln -fs "$HOME/.config/github-keychain/default-config.github-codespace.toml" "$HOME/.config/github-keychain/default-config.toml"
+		fi
 		ln -fs "$HOME/.config/p10k/p10k.zsh.codespaces" "$HOME/.p10k.zsh"
 	else
 		ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
