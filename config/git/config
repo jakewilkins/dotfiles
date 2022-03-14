@@ -78,6 +78,7 @@
 
 [credential]
 	helper = github-keychain
+	useHttpPath = true
 
 [protocol]
 	version = 2
