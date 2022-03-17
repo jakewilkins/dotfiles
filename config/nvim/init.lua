@@ -123,7 +123,7 @@ map('n', 'go', 'o<esc>')
 map('n', 'gO', 'O<esc>')
 
 -- Yank from the cursor to the end of the line, to be consistent with C and D.
--- map('n', 'Y', 'y$', { noremap = true })
+map('n', 'Y', 'y_', { noremap = true })
 
 -- clean up trailing whitespace
 -- map('n', '<Leader>c', ':StripWhitespace<cr>')
