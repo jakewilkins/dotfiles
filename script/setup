@@ -89,14 +89,11 @@ else
 	symlink_without_overwriting "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
 fi
 
-hash git-credential-github-keychain 2>/dev/null || {
-	system=$(uname -s | tr '[:upper:]' '[:lower:]')
-	url="https://github.com/jakewilkins/git-credential-github-keychain/releases/download/release-4e9290713647c22519e43c4b49e70f9ce415fd79/$system-git-credential-github-keychain.zip"
+echo "Symlinking dotfiles dir"
+ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
 
-	curl -Lo credential-helper.zip "$url"
-	unzip credential-helper.zip
-	mv -v git-credential-github-keychain ./bin/
-	rm credential-helper.zip
+hash git-credential-github-keychain 2>/dev/null || {
+	./script/install-git-credential-helper
 }
 
 if [ $LINUX ]; then
@@ -125,9 +122,6 @@ if [ "$SHELL" != "/bin/zsh" ]; then
 	echo "Switching shell to zsh"
 	sudo chsh -s $(which zsh)
 fi
-
-echo "Symlinking dotfiles dir"
-ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
 
 if [ $LINUX ]; then
 	echo "Installing Linux build essentials"
