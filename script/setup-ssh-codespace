@@ -2,6 +2,7 @@
 
 ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
 
+sudo apt update
 sudo apt install -y jq luajit fzf ripgrep tmux
 
 cd ~
@@ -17,7 +18,7 @@ hash nvim 2>/dev/null || {
 	curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 	chmod u+x nvim.appimage
 
-	./nvim.appimage --appimage-extract
+	./nvim.appimage --appimage-extract >/dev/null
 
 	sudo mv squashfs-root /
 	sudo ln -fs /squashfs-root/AppRun /usr/local/bin/nvim
