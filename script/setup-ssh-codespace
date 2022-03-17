@@ -7,10 +7,6 @@ sudo apt install -y jq luajit fzf ripgrep tmux
 
 cd ~
 
-if [[ "$GITHUB_REPOSITORY" == "github/github" ]]; then
-  sed -i "s|/.codespaces/bin/gitcredential_github.sh|$HOME/bin/git-credential-github-keychain|g" /etc/gitconfig
-fi
-
 /usr/bin/git clone "https://github.com/jakewilkins/bin" bin-repo
 mv .dotfiles/bin/git-credential-github-keychain ./bin-repo/
 rm -rf bin
