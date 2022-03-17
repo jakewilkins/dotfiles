@@ -4,5 +4,5 @@ app_configs = [
 	{"path" = "not-github", "client_id" = "Iv1.0d8235be0345f60f"},
 	{"path" = "jakes-fine-avocados", "client_id" = "Iv1.0d8235be0345f60f"}
 ]
-fallback = "/workspace/github/.codespaces/bin/gitcredential_github.sh"
+fallback = "/.codespaces/bin/gitcredential_github.sh"
 credentials = []
