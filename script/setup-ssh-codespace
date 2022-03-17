@@ -7,6 +7,10 @@ sudo apt install -y jq luajit fzf ripgrep tmux
 
 cd ~
 
+if [[ "$GITHUB_REPOSITORY" == "github/github" ]]; then
+  sed -i "s|/.codespaces/bin/gitcredential_github.sh|$HOME/bin/git-credential-github-keychain|g" /etc/gitconfig
+fi
+
 /usr/bin/git clone "https://github.com/jakewilkins/bin" bin-repo
 mv .dotfiles/bin/git-credential-github-keychain ./bin-repo/
 rm -rf bin
@@ -24,10 +28,6 @@ hash nvim 2>/dev/null || {
 	sudo ln -fs /squashfs-root/AppRun /usr/local/bin/nvim
 	rm nvim.appimage
 }
-
-if [[ "$GITHUB_REPOSITORY" == "github/github" ]]; then
-  sed -i "s|/.codespaces/bin/gitcredential_github.sh|$HOME/bin/git-credential-github-keychain|g" /etc/gitconfig
-fi
 
 echo "Installing vim plugins"
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
