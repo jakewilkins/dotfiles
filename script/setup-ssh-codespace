@@ -25,5 +25,9 @@ hash nvim 2>/dev/null || {
 	rm nvim.appimage
 }
 
+if [[ "$GITHUB_REPOSITORY" == "github/github" ]]; then
+  sed -i "s|/.codespaces/bin/gitcredential_github.sh|/workspaces/.codespaces/.persistedshare/dotfiles/bin/git-credential-github-keychain|g" /etc/gitconfig
+fi
+
 echo "Installing vim plugins"
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
