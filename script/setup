@@ -103,8 +103,8 @@ if [ $LINUX ]; then
 
 	if [ $CODESPACES ]; then
 		if [[ "$GITHUB_REPOSITORY" == "github/github" ]]; then
-			git config -f /etc/gitconfig --replace-all credential.helper "$HOME/bin/git-credential-github-keychain"
-			git config -f /etc/gitconfig credential.useHttpPath true
+			sudo git config -f /etc/gitconfig --replace-all credential.helper "$HOME/bin/git-credential-github-keychain"
+			sudo git config -f /etc/gitconfig credential.useHttpPath true
 			ln -fs "$HOME/.config/github-keychain/default-config.github-codespace.toml" "$HOME/.config/github-keychain/default-config.toml"
 		fi
 		ln -fs "$HOME/.config/p10k/p10k.zsh.codespaces" "$HOME/.p10k.zsh"
