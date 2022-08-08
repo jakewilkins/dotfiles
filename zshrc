@@ -9,10 +9,19 @@ source ~/.dotfiles/powerlevel10k/powerlevel10k.zsh-theme
 autoload -Uz compinit
 compinit
 
+bindkey -v
+autoload edit-command-line; zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
-export HISTSIZE=2000
+setopt inc_append_history
+# export HISTSIZE=2000 export SAVEHIST=7000
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
 export HISTFILE="$HOME/.zhistory"
+
+export VISUAL=/usr/bin/vim
 
 alias c='clear'
 alias cp="cp -v"
@@ -31,8 +40,8 @@ alias rld='. ~/.zshrc'
 alias vb='nvim ~/.zshrc'
 alias e='nvim'
 alias :e='nvim'
-alias vi='nvim'
-alias vim='nvim'
+# alias vi='nvim'
+# alias vim='nvim'
 alias :q='exit'
 alias q='exit'
 alias :gs='gws'
