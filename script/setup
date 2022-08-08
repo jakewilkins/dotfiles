@@ -10,6 +10,17 @@ DOTFILES_PATH=$(pwd -P)
 
 FILES_TO_SYMLINK=(config gemrc pryrc tmux tmux.conf)
 
+DOTFILES_FOLDER_IS_READONLY=$DEVCONTAINER_STANDALONE
+
+if [ $DOTFILES_FOLDER_IS_READONLY ]; then
+	echo "Copying dotfiles cache since dotfiles is readonly"
+	cp -r "$DOTFILES_PATH" "$HOME/.dotfiles"
+	DOTFILES_PATH="$HOME/.dotfiles"
+else
+	echo "Symlinking dotfiles dir"
+	ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
+fi
+
 function symlink_without_overwriting() {
 	local source_path=$1
 	local destination_path=$2
@@ -46,9 +57,15 @@ function symlink_without_overwriting() {
 }
 
 
-# Bring in all of our submodule dependencies
-echo "Installing Git submodules"
-git submodule init && git submodule update --depth 5
+if [  -z "$DEVCONTAINER_STANDALONE" ]; then
+	# Bring in all of our submodule dependencies
+	echo "Installing Git submodules"
+	git submodule init && git submodule update --depth 5
+else
+	# Force linking individual files instead of .config dir
+	mkdir -p ~/.config
+	CODESPACES=true;
+fi
 
 # If the config directory already exists, then just symlink all of
 # the contents instead.
@@ -72,6 +89,13 @@ elif [ -d "${HOME}/.config" ]; then
 	unset FILES_TO_SYMLINK[0]
 fi
 
+# We want ~/.config/git to be writable so make a copy
+if [ ! -z "$DEVCONTAINER_STANDALONE" ]; then
+	# rm  "$HOME/.config/git"
+	# mkdir "$HOME/.config/git"
+	# cp "$DOTFILES_PATH/config/git/config" "$HOME/.config/git"
+	echo "don't think this is necessary anymore"
+fi
 for FILE in "${FILES_TO_SYMLINK[@]}"; do
 	source_path="${DOTFILES_PATH}/${FILE}"
 	dest_path="${HOME}/.${FILE}"
@@ -89,17 +113,27 @@ else
 	symlink_without_overwriting "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
 fi
 
-echo "Symlinking dotfiles dir"
-ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
-
 hash git-credential-github-keychain 2>/dev/null || {
 	./script/install-git-credential-helper
 }
 
 if [ $LINUX ]; then
 	echo "Symlinking linux specific files"
-	ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
-	ln -fs "$HOME/.config/github-keychain/default-config.linux.toml" "$HOME/.config/github-keychain/default-config.toml"
+
+	if [ ! -f "/usr/local/lib/z.sh" ]; then
+		echo "Download z.sh"
+		wget https://raw.githubusercontent.com/rupa/z/master/z.sh -O ~/z.sh
+		sudo mv ~/z.sh /usr/local/lib/z.sh
+	fi
+
+	if [ ! $DEVCONTAINER_STANDALONE ]; then
+		ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
+		ln -fs "$HOME/.config/github-keychain/default-config.linux.toml" "$HOME/.config/github-keychain/default-config.toml"
+	else
+		ln -fs "$HOME/.config/github-keychain/default-config.github-codespaces.toml" "$HOME/.config/github-keychain/default-config.toml"
+
+		ln -fs "$HOME/.config/p10k/p10k.zsh.codespaces" "$HOME/.p10k.zsh"
+	fi
 
 	if [ $CODESPACES ]; then
 		if [[ "$GITHUB_REPOSITORY" == "github/github" ]]; then
