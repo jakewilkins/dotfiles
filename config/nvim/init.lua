@@ -37,6 +37,9 @@ vim.opt.gdefault = true
 -- don't abandon buffers when unloading
 vim.opt.hidden = true
 
+-- disable mouse except in help
+vim.opt.mouse = 'h'
+
 -- searching is case insensitive when all lowercase
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
