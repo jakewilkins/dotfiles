@@ -143,7 +143,7 @@ function poll_cmd_exs() {
   while [ true ]
   do
     chsum2=`find ./ -type f -iname "*.ex*" -exec md5 {} \;`
-    if [[ $chsum1 != $chsum2 ]] ; then           
+    if [[ $chsum1 != $chsum2 ]] ; then
       eval $1
       chsum1=$chsum2
     else
