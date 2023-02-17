@@ -92,7 +92,7 @@ alias tml="tmux ls"
 # alias vss='vagrant ssh'
 # alias v='vagrant'
 
-alias csssh="TERM=xterm-256color gh cs ssh"
+#alias csssh="TERM=xterm-256color gh cs ssh"
 
 #docker
 alias doc='docker'

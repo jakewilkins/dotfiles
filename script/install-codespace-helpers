@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+pushd "$HOME/.dotfiles"
+
+if [ ! -d "$HOME/.dotfiles/codespaces-helpers" ]; then
+  /usr/bin/git clone "https://github.com/jakewilkins/codespaces-helpers"
+else
+  pushd codespaces-helpers
+  /usr/bin/git pull
+  popd
+fi
+
+$HOME/.dotfiles/codespaces-helpers/script/install
+
+popd

@@ -27,3 +27,6 @@ hash nvim 2>/dev/null || {
 
 echo "Installing vim plugins"
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+echo "Installing codespace-helpers"
+$HOME/.dotfiles/script/install-codespace-helpers
