@@ -158,6 +158,8 @@ catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 ]], false)
 
+vim.cmd(':let g:netrw_browsex_viewer="open"')
+
 if(utils.platform() == 'Linux') then
 	require('linux')
 elseif(utils.platform() == 'Darwin') then
