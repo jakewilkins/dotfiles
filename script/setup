@@ -37,7 +37,10 @@ function symlink_without_overwriting() {
 
 	if [ $wrong_type_flag "$destination_path" ]; then
 		echo "$destination_path already exists and is not a $file_type, please figure out what you want done with that and re-run this script."
-		exit 1
+
+		if [ ! $CODESPACES ]; then
+			exit 1
+		fi
 	elif [ $same_type_flag "$destination_path" ]; then
 		if [ -L "$destination_path" ]; then
 			destination=$(readlink $destination_path)
@@ -45,11 +48,16 @@ function symlink_without_overwriting() {
 				echo "$source_path is already symlinked to $destination"
 			else
 				echo "$destination_path exists as a symlink to something else, please figure out what you want done with that and re-run this script."
-				exit 1
+				if [ ! $CODESPACES ]; then
+					exit 1
+				fi
 			fi
 		else
 			echo "$destination_path exists as a regular $file_type, please figure out what you want done with that and re-run this script."
-			exit 1
+
+			if [ ! $CODESPACES ]; then
+				exit 1
+			fi
 		fi
 	else
 		ln -sfv $source_path $destination_path
