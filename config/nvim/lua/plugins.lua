@@ -222,6 +222,6 @@ return require('packer').startup({function()
 				end,
 			}
 
-			use "cocopon/iceberg.vim"
+			use { "catppuccin/nvim", as = "catppuccin" }
 
 		end, config = { display = { open_fn = require('packer.util').float }}})
