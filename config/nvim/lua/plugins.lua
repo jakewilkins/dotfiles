@@ -223,5 +223,6 @@ return require('packer').startup({function()
 			}
 
 			use { "catppuccin/nvim", as = "catppuccin" }
+			use "github/copilot.vim"
 
 		end, config = { display = { open_fn = require('packer.util').float }}})
