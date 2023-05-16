@@ -226,3 +226,9 @@ source "$HOME/.dotfiles/system.zshrc"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+alias '??'='github-copilot-cli what-the-shell'
+alias 'git?'='github-copilot-cli git-assist'
+alias 'gh?'='github-copilot-cli gh-assist'
+
+alias nghcs='gh cs create --repo github/github --branch master --devcontainer-path .devcontainer/devcontainer.json'

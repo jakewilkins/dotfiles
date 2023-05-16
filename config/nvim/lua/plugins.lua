@@ -204,6 +204,7 @@ return require('packer').startup({function()
 			use "kchmck/vim-coffee-script"
 			use "tommcdo/vim-exchange"
 			use "junegunn/vim-peekaboo"
+			use "keith/swift.vim"
 
 			use {
 				"ctrlpvim/ctrlp.vim",
