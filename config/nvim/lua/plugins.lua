@@ -55,7 +55,7 @@ return require('packer').startup({function()
 		-- 'liuchengxu/vista.vim',
 		'preservim/tagbar',
 		setup = function()
-			vim.g['tagbar_ctags_bin'] = '/usr/local/bin/ctags'
+			vim.g['tagbar_ctags_bin'] = '/usr/bin/ctags'
 		end,
 		config = function()
 			-- vim.cmd('TagbarDebug')
