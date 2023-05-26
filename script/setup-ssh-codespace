@@ -3,7 +3,7 @@
 ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
 
 sudo apt update
-sudo apt install -y jq luajit fzf ripgrep tmux
+sudo apt install -y jq luajit fzf ripgrep tmux universal-ctags
 
 cd ~
 
