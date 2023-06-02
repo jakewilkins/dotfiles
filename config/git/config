@@ -8,7 +8,6 @@
 	cs  = commit -S
 	st  = status -sb
 	up  = !sh -c 'git pull --rebase --prune && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
-  down = "! f() { branch=`git rev-parse --abbrev-ref HEAD`; git fetch origin $branch ; if [[ $1 == 'rebase' ]]; then git stash; git rebase origin/$branch; git stash pop; else  git merge origin/$branch --ff-only; fi }; f"
 
 [color]
 	ui = true
