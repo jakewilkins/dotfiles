@@ -69,7 +69,7 @@ return require('packer').startup({function()
 			vim.g['tagbar_autofocus'] = 1
 			vim.g['tagbar_autoclose'] = 1
 			vim.g['tagbar_left'] = 1
-			vim.g['tagbar_ctags_bin'] = '/usr/local/bin/ctags'
+			vim.g['tagbar_ctags_bin'] = '/usr/bin/ctags'
 			-- vim.g['vista#renderer#enable_icon'] = 1
 			-- vim.g['vista_fzf_preview'] = {'left:50%'}
 			-- vim.g['vista_default_executive'] = 'ctags'
