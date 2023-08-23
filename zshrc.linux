@@ -25,6 +25,7 @@ if [ $CODESPACES ]; then
 
 	alias cdd="cd /workspaces/.codespaces/.persistedshare/dotfiles"
 	alias setup-ssh-codespace="$HOME/.dotfiles/script/setup-ssh-codespace"
+	alias setup-codespace-tmux="$HOME/.dotfiles/codespaces-helpers/script/setup-tmux-session"
 else
 	. /usr/local/lib/z.sh
 fi
