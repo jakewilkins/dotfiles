@@ -20,3 +20,5 @@ source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 
 alias ssh="TERM=xterm-256color ssh"
+
+alias nghcs='gh cs create --repo github/github --branch master --devcontainer-path .devcontainer/devcontainer.json -m largePremiumLinux'
