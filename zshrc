@@ -197,7 +197,7 @@ alias rubies='ls ~/.rubies'
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 alias ag='rg'
 
-alias gtt='tt `git ls-files -m test`'
+alias gtt='rt `git ls-files -m test`'
 
 
 if [[ $PATH != *"$HOME/.rbenv/shims"* && -f "$HOME/.rbenv/bin/rbenv" ]]; then
