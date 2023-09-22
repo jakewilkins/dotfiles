@@ -146,6 +146,7 @@ if [ $LINUX ]; then
 	if [ $CODESPACES ]; then
 		sudo git config -f /etc/gitconfig --replace-all credential.helper "$HOME/bin/git-credential-github-keychain"
 		sudo git config -f /etc/gitconfig credential.useHttpPath true
+		sudo git config -f /etc/gitconfig gpg.program /.codespaces/bin/gh-gpgsign
 		ln -fs "$HOME/.config/github-keychain/default-config.github-codespace.toml" "$HOME/.config/github-keychain/default-config.toml"
 		ln -fs "$HOME/.config/p10k/p10k.zsh.codespaces" "$HOME/.p10k.zsh"
 	else
