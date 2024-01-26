@@ -3,7 +3,13 @@
 hash kitty 2>/dev/null && kitty + complete setup zsh | source /dev/stdin
 alias icat="kitty +kitten icat"
 
-. /usr/local/etc/profile.d/z.sh
+if [ -d /opt/homebrew ]; then
+	homebrew_location="/opt/homebrew"
+else
+	homebrew_location="/usr/local"
+fi
+
+. $homebrew_location/etc/profile.d/z.sh
 
 alias ip='ipconfig getifaddr en0'
 
@@ -16,8 +22,8 @@ fi
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /Users/jakewilkins/bin/hubbers hubbers
 
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
+source $homebrew_location/opt/chruby/share/chruby/chruby.sh
+source $homebrew_location/opt/chruby/share/chruby/auto.sh
 
 alias ssh="TERM=xterm-256color ssh"
 
