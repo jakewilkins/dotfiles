@@ -73,16 +73,6 @@ function serve() {
 
 alias tt='nocorrect tt'
 
-# function mkexe() {
-#   touch $1
-#   chmod +x $1
-# }
-
-## tmux commands
-alias tma="tmux attach -t $2"
-alias tmn="__create_new_tmux_session $1 $2 $3"
-alias tml="tmux ls"
-
 #vagrant
 # alias vsd='vagrant ssh default'
 # alias vud='vagrant up default'
@@ -96,6 +86,33 @@ alias tml="tmux ls"
 #docker
 alias doc='docker'
 alias dco='docker-compose'
+
+## tmux commands
+alias tma="__attach_to_tmux_session $1"
+alias tmn="__create_new_tmux_session $1 $2 $3"
+alias tml="tmux ls"
+
+function __attach_to_tmux_session {
+	if [[ -n "$1" ]]; then
+		tmux attach -t $1
+	else
+		sessions=$(tmux ls)
+		count=$(echo $sessions | wc -l)
+		target=""
+
+		if [[ "$count" == "1" ]]; then
+			target=$(echo $sessions |head -n 1)
+		else
+			target=$(echo $sessions | fzf)
+		fi
+		target=$(echo $target | cut -d ":" -f 1)
+
+		echo "Attaching to $target"
+
+		tmux attach -t "$target"
+	fi
+	echo "thank you for everything you do"
+}
 
 function __create_new_tmux_session (){
   echo "creating tmux session named $1"
