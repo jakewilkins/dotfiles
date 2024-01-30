@@ -24,6 +24,7 @@ complete -o nospace -C /Users/jakewilkins/bin/hubbers hubbers
 
 source $homebrew_location/opt/chruby/share/chruby/chruby.sh
 source $homebrew_location/opt/chruby/share/chruby/auto.sh
+chruby 3.2.0
 
 alias ssh="TERM=xterm-256color ssh"
 
