@@ -3,7 +3,8 @@ app_configs = [
   {"path" = "gist", "client_id" = "Iv1.dd5706e72cfeb9d8"},
   {"path" = "jakewilkins", "client_id" = "Iv1.dd5706e72cfeb9d8"},
   {"path" = "not-github", "client_id" = "Iv1.0d8235be0345f60f"},
-  {"path" = "jakes-fine-avocados", "client_id" = "Iv1.0d8235be0345f60f"}
+  {"path" = "jakes-fine-avocados", "client_id" = "Iv1.0d8235be0345f60f"},
+  {"path" = "Apps-Team", "client_id" = "Iv1.8a72616003301535"}
 ]
 fallback = "osxkeychain"
 credentials = []
