@@ -40,8 +40,6 @@ alias rld='. ~/.zshrc'
 alias vb='nvim ~/.zshrc'
 alias e='nvim'
 alias :e='nvim'
-# alias vi='nvim'
-# alias vim='nvim'
 alias :q='exit'
 alias q='exit'
 alias :gs='gws'
@@ -72,16 +70,6 @@ function serve() {
 }
 
 alias tt='nocorrect tt'
-
-#vagrant
-# alias vsd='vagrant ssh default'
-# alias vud='vagrant up default'
-# alias vup='vagrant up'
-# alias sup='sudo echo "fuck you" && vagrant up'
-# alias vss='vagrant ssh'
-# alias v='vagrant'
-
-#alias csssh="TERM=xterm-256color gh cs ssh"
 
 #docker
 alias doc='docker'
@@ -144,7 +132,7 @@ function poll_cmd() {
   while [ true ]
   do
     chsum2=`find ./ -type f -iname "*.rb" -exec md5 {} \;`
-    if [[ $chsum1 != $chsum2 ]] ; then           
+    if [[ $chsum1 != $chsum2 ]] ; then
       eval $1
       chsum1=$chsum2
     else
@@ -204,12 +192,6 @@ fi
 
 alias rubies='ls ~/.rubies'
 
-#RUBIES+=("$HOME/.rbenv/versions"/*)
-
-#if [[ -z "$RUBY_ROOT" || ! -z "TMUX" ]]; then
-#  chruby 2.5.1
-#fi
-
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 alias ag='rg'
 
@@ -223,7 +205,6 @@ fi
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 bindkey "^R" history-incremental-pattern-search-backward
-#source ~/dotfiles/shell/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 alias monitor-window="tmux set-window-option monitor-activity on"
 alias unmonitor-window="tmux set-window-option monitor-activity off"
