@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if $CODESPACES; then
+	if tmux has-session -t ghcs 2>/dev/null; then
+		echo "Session exists, joining"
+		tma ghcs
+	else
+		echo "Session needs to be created"
+		if [ -f ~/bin/README.md ]; then
+			echo setup-ssh-codespace has already ran
+			setup-codespace-tmux
+			tma ghcs
+		else
+			echo setup-ssh-codespace needs to run
+			setup-ssh-codespace
+			tma ghcs
+		fi
+	fi
+fi
