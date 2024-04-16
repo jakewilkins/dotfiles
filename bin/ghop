@@ -16,7 +16,7 @@ if $CODESPACES; then
       tma ghcs
     else
       echo setup-ssh-codespace needs to run
-      setup-ssh-codespace
+      ~/.dotfiles/script/setup-ssh-codespace
       tma ghcs
     fi
   fi
