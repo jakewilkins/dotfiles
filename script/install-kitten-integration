@@ -1,0 +1,31 @@
+#!/bin/zsh
+
+pushd $HOME/bin
+curl -LO https://github.com/kovidgoyal/kitty/releases/latest/download/kitten-linux-386
+chmod u+x kitten-linux-386
+mv kitten-linux-386 kitten
+popd
+
+# This is a redirect to the zip I created from my local install
+curl -Lo JL9l7.zip https://jsw.io/JL9l7
+
+if [[ -f JL9l7.zip ]]; then
+	mkdir -p $HOME/.config/kitty/shell-integration/zsh
+	mv JL9l7.zip $HOME/.config/kitty/shell-integration/zsh/kitty-shell-integrations.zip
+
+	pushd $HOME/.config/kitty/shell-integration/zsh
+	unzip kitty-shell-integrations.zip
+	rm -v kitty-shell-integrations.zip
+
+	# This might be expected?
+	export KITTY_INSTALLATION_DIR="$HOME/.config/kitty"
+
+	# This is from the docs https://sw.kovidgoyal.net/kitty/shell-integration/#manual-shell-integration
+	# and is also in my zshrc, running it here to hopefully get it in the current shell
+	export KITTY_SHELL_INTEGRATION="enabled"
+	autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
+	kitty-integration
+	unfunction kitty-integration
+
+	popd
+fi
