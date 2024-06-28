@@ -45,28 +45,5 @@ fi
 
 if [[ ! -d $HOME/.config/kitty/shell-integration ]]; then
 	echo "Installing kitty helpers"
-
-	# This is a redirect to the zip I created from my local install
-	curl -LO https://jsw.io/JL9l7
-
-	if [[ -f kitty-shell-integrations.zip ]]; then
-		mkdir -p $HOME/.config/kitty/shell-integration/zsh
-		mv kitty-shell-integrations.zip $HOME/.config/kitty/shell-integration/zsh
-
-		pushd $HOME/.config/kitty/shell-integration/zsh
-		unzip kitty-shell-integrations.zip
-		rm -v kitty-shell-integrations.zip
-
-		# This might be expected?
-		export KITTY_INSTALLATION_DIR="$HOME/.config/kitty"
-
-		# This is from the docs https://sw.kovidgoyal.net/kitty/shell-integration/#manual-shell-integration
-		# and is also in my zshrc, running it here to hopefully get it in the current shell
-		export KITTY_SHELL_INTEGRATION="enabled"
-		autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
-		kitty-integration
-		unfunction kitty-integration
-
-		popd
-	fi
+	$HOME/.dotfiles/script/install-kitten-integration
 fi
