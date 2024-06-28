@@ -221,6 +221,14 @@ alias rt="./bin/rails test -p "
 
 source "$HOME/.dotfiles/system.zshrc"
 
+if [[ -f ~/.config/kitty/shell-integration/zsh/kitty-integration ]]; then
+	export KITTY_INSTALLATION_DIR="$HOME/.config/kitty"
+	export KITTY_SHELL_INTEGRATION="enabled"
+	autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
+	kitty-integration
+	unfunction kitty-integration
+fi
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

@@ -30,3 +30,5 @@ else
 	. /usr/local/lib/z.sh
 fi
 
+# Created by `pipx` on 2024-05-30 17:10:35
+export PATH="$PATH:$HOME/.local/bin"
