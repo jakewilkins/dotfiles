@@ -8,6 +8,12 @@ if $CODESPACES; then
   if tmux has-session -t ghcs 2>/dev/null; then
     echo "Session exists, joining"
     tma ghcs
+	elif [[ -f "$HOME/.dotfiles/tmux/resurrect/last" ]]; then
+		echo "Resurrecting previous session"
+		tmux new-session -d -s resurrection-session
+		sleep 4
+		tmux kill-session -t resurrection-session
+		tmux attach
   else
     echo "Session needs to be created"
     if [ -d ~/.dotfiles/codespaces-helpers ]; then
