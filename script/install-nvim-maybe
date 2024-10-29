@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo -n "Checking for neovim... "
+hash nvim 2>/dev/null || {
+	# The apt installed version is 0.4.3, we'll just watch the minor version so they can
+	# bump the patch version.
+	minor_version=`nvim --version | head -n 1 | cut -d ' ' -f 2 | cut -d '.' -f 2`
+
+	if [[ "$minor_version" == "4" ]]; then
+		echo "installing neovim"
+		curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+		chmod u+x nvim.appimage
+
+		./nvim.appimage --appimage-extract >/dev/null
+
+		sudo mv squashfs-root /
+		sudo ln -fs /squashfs-root/AppRun /usr/local/bin/nvim
+		rm nvim.appimage
+		hash -r
+	fi
+}
+echo "ok fine"
+

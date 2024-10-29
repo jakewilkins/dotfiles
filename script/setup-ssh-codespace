@@ -17,23 +17,7 @@ if [[ ! -f $HOME/bin/README.md ]]; then
 	cd -
 fi
 
-hash nvim 2>/dev/null || {
-	# The apt installed version is 0.4.3, we'll just watch the minor version so they can
-	# bump the patch version.
-	minor_version=`nvim --version | head -n 1 | cut -d ' ' -f 2 | cut -d '.' -f 2`
-
-	if [[ "$minor_version" == "4" ]]; then
-		curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-		chmod u+x nvim.appimage
-
-		./nvim.appimage --appimage-extract >/dev/null
-
-		sudo mv squashfs-root /
-		sudo ln -fs /squashfs-root/AppRun /usr/local/bin/nvim
-		rm nvim.appimage
-		hash -r
-	fi
-}
+$HOME/.dotfiles/script/install-nvim-maybe
 
 echo "Installing vim plugins"
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
