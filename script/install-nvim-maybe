@@ -26,3 +26,6 @@ fi
 
 echo "ok fine"
 
+echo "Installing vim plugins"
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
