@@ -190,6 +190,10 @@ if [[ $PATH != *"$HOME/.rbenv/bin"* ]]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
 fi
 
+if [ -f "$HOME/.cargo/env" ]; then
+	. "$HOME/.cargo/env"
+fi
+
 alias rubies='ls ~/.rubies'
 
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
