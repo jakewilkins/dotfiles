@@ -143,6 +143,10 @@ map('n', '<Space>', ':', { noremap = true })
 map('n', '<C-k>', ':vertical wincmd f <cr>', { noremap = false })
 -- COMMANDS
 
+-- vertical split file under cursor
+-- nnoremap <C-W><C-S-F> <C-W>vgF,
+map('n', '<C-W><C-S-F>', '<C-W>vgF', { noremap = true })
+
 -- remember the last position in file
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") < line("$") | exe "normal! g\'\\"" | endif')
 
