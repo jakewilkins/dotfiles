@@ -19,9 +19,6 @@ fi
 
 $HOME/.dotfiles/script/install-nvim-maybe
 
-echo "Installing vim plugins"
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
 if [ ! -d $HOME/.dotfiles/codespace-helpers ]; then
 	echo "Installing codespace-helpers"
 	$HOME/.dotfiles/script/install-codespace-helpers

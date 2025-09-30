@@ -179,10 +179,5 @@ if [ $CODESPACES ]; then
 	git config --global include.path /etc/gitconfig
 fi
 
-hash nvim 2>/dev/null && {
-	echo "Installing vim plugins"
-	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-}
-
 echo "Done"
 

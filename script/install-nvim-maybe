@@ -3,7 +3,7 @@
 function do_install() {
 		echo "installing neovim"
 		curl -L -o nvim.appimage https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.appimage
-		
+
 		chmod u+x nvim.appimage
 
 		./nvim.appimage --appimage-extract >/dev/null
@@ -26,6 +26,3 @@ if [[ "$minor_version" == "4" ]]; then
 fi
 
 echo "ok fine"
-
-echo "Installing vim plugins"
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
