@@ -169,6 +169,12 @@ if(utils.platform() == 'Linux') then
 elseif(utils.platform() == 'Darwin') then
 	require('darwin')
 end
+
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  command = [[%s/\s\+$//e]],
+})
+
 -- require(platform:lower())
 
 -- Create a search command that uses Ripgrep and offers previews

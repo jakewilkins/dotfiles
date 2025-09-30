@@ -2,14 +2,14 @@
 
 tap "universal-ctags/universal-ctags"
 
-brew "autojump"
-brew "bat"
+#brew "autojump"
+#brew "bat"
 brew "diff-so-fancy"
 brew "chruby"
 brew "ruby-build"
 #brew "fish"
 brew "fzf"
-brew "git"
+#brew "git"
 brew "jq"
 brew "luajit", args: ["HEAD"]
 brew "neovim"#, args: ["HEAD"]

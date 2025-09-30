@@ -30,5 +30,5 @@ chruby $latest_ruby
 
 alias ssh="TERM=xterm-256color ssh"
 
-alias nghcs='gh cs create --repo github/github --branch master --devcontainer-path .devcontainer/devcontainer.json -m largePremiumLinux'
+alias nghcs='gh cs create --repo github/github --branch master --devcontainer-path .devcontainer/devcontainer.json -m xLargePremiumLinux'
 eval "$(/opt/homebrew/bin/brew shellenv)"
