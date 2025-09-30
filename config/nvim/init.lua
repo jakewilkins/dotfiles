@@ -150,8 +150,8 @@ map('n', '<C-W><C-S-F>', '<C-W>vgF', { noremap = true })
 -- remember the last position in file
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") < line("$") | exe "normal! g\'\\"" | endif')
 
--- recompile packer on save of plugins.lua
-vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
+-- auto reload plugins on save of plugins.lua (lazy.nvim handles reloading automatically)
+vim.cmd([[autocmd BufWritePost plugins.lua source <afile>]])
 
 vim.api.nvim_exec([[
 try
