@@ -2,8 +2,30 @@
 local utils = require('config.utils') -- lua/config/utils.lua
 local map = utils.map
 
---- PLUGINS ---
-require('plugins')
+--- SET LEADER KEYS BEFORE LOADING PLUGINS ---
+-- The one true leader key
+vim.g.mapleader = [[,]]
+vim.g.maplocalleader = [[,]]
+
+--- BOOTSTRAP LAZY.NVIM ---
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+vim.opt.rtp:prepend(lazypath)
+
+--- SETUP PLUGINS ---
+require("lazy").setup("plugins")
 
 
 --- COLORS ---
@@ -88,10 +110,6 @@ vim.g.solarized_termtrans = 1
 vim.opt.statusline = "%f%h%m%r%w%=%c,%l/%L %P"
 
 --- MAPPINGS ---
-
--- The one true leader key
-vim.g.mapleader = [[,]]
-vim.g.maplocalleader = [[,]]
 
 -- easy wrap toggling
 -- map('n', '<LEADER>w', ':set wrap!<CR>')
