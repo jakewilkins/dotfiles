@@ -9,10 +9,10 @@ def mark(text, args, Mark, extra_cli_args, *a):
     for idx, m in enumerate(re.finditer(r'\b([A-Z0-9]{4}-[A-Z0-9]{4})(\b)', text)):
         start, end = m.span()
         mark_text = text[start:end].replace('\n', '').replace('\0', '')
-        # The empty dictionary below will be available as groupdicts
-        # in handle_result() and can contain string keys and arbitrary JSON
-        # serializable values.
-        yield Mark(idx, start, end, mark_text, {})
+        # Find the device flow URL from the screen text
+        url_match = re.search(r'https?://[^\s]+/login/device', text)
+        url = url_match.group(0) if url_match else 'https://github.com/login/device'
+        yield Mark(idx, start, end, mark_text, {'url': url})
 
 
 def handle_result(args, data, target_window_id, boss, extra_cli_args, *a):
@@ -28,5 +28,7 @@ def handle_result(args, data, target_window_id, boss, extra_cli_args, *a):
     for word, match_data in zip(matches, groupdicts):
         # Copy the word to the clipboard by shelling out to pbcopy
         subprocess.run("pbcopy", text=True, input=word)
-        # will open the provided url in the system browser
-        boss.open_url(f'https://github.com/login/device')
+        # Open the device flow URL found on screen with skip_account_picker
+        url = match_data.get('url', 'https://github.com/login/device')
+        separator = '&' if '?' in url else '?'
+        boss.open_url(f'{url}{separator}skip_account_picker=true')
