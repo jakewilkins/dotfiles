@@ -333,15 +333,7 @@
   # parameter. For example, if POWERLEVEL9K_DIR_WORK_NOT_WRITABLE_FOREGROUND is not set, it falls
   # back to POWERLEVEL9K_DIR_FOREGROUND.
   #
-  typeset -g POWERLEVEL9K_DIR_WORK_VISUAL_IDENTIFIER_EXPANSION=''
-  typeset -g POWERLEVEL9K_DIR_WORK_FOREGROUND=34
-  # typeset -g POWERLEVEL9K_DIR_WORK_SHORTENED_FOREGROUND=156
-  # typeset -g POWERLEVEL9K_DIR_DISABLED_DIR_PATTERN='/home/workspace/github'
-  typeset -g POWERLEVEL9K_DIR_WORK_ANCHOR_FOREGROUND=39
-
-  typeset -g POWERLEVEL9K_DIR_CLASSES=(
-    "/home/workspace/github" WORK ''
-  )
+  typeset -g POWERLEVEL9K_DIR_CLASSES=()
 
   # Custom prefix.
   # typeset -g POWERLEVEL9K_DIR_PREFIX='%fin '

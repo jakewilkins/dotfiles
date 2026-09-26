@@ -10,16 +10,8 @@ DOTFILES_PATH=$(pwd -P)
 
 FILES_TO_SYMLINK=(config gemrc pryrc tmux tmux.conf)
 
-DOTFILES_FOLDER_IS_READONLY=$DEVCONTAINER_STANDALONE
-
-if [ $DOTFILES_FOLDER_IS_READONLY ]; then
-	echo "Copying dotfiles cache since dotfiles is readonly"
-	cp -r "$DOTFILES_PATH" "$HOME/.dotfiles"
-	DOTFILES_PATH="$HOME/.dotfiles"
-else
-	echo "Symlinking dotfiles dir"
-	ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
-fi
+echo "Symlinking dotfiles dir"
+ln -fs "$DOTFILES_PATH" "$HOME/.dotfiles"
 
 function symlink_without_overwriting() {
 	local source_path=$1
@@ -37,10 +29,7 @@ function symlink_without_overwriting() {
 
 	if [ $wrong_type_flag "$destination_path" ]; then
 		echo "$destination_path already exists and is not a $file_type, please figure out what you want done with that and re-run this script."
-
-		if [ ! $CODESPACES ]; then
-			exit 1
-		fi
+		exit 1
 	elif [ $same_type_flag "$destination_path" ]; then
 		if [ -L "$destination_path" ]; then
 			destination=$(readlink $destination_path)
@@ -48,16 +37,11 @@ function symlink_without_overwriting() {
 				echo "$source_path is already symlinked to $destination"
 			else
 				echo "$destination_path exists as a symlink to something else, please figure out what you want done with that and re-run this script."
-				if [ ! $CODESPACES ]; then
-					exit 1
-				fi
+				exit 1
 			fi
 		else
 			echo "$destination_path exists as a regular $file_type, please figure out what you want done with that and re-run this script."
-
-			if [ ! $CODESPACES ]; then
-				exit 1
-			fi
+			exit 1
 		fi
 	else
 		ln -sfv $source_path $destination_path
@@ -65,15 +49,9 @@ function symlink_without_overwriting() {
 }
 
 
-if [  -z "$DEVCONTAINER_STANDALONE" ]; then
-	# Bring in all of our submodule dependencies
-	echo "Installing Git submodules"
-	git submodule init && git submodule update --depth 5
-else
-	# Force linking individual files instead of .config dir
-	mkdir -p ~/.config
-	CODESPACES=true;
-fi
+# Bring in all of our submodule dependencies
+echo "Installing Git submodules"
+git submodule init && git submodule update --depth 5
 
 # If the config directory already exists, then just symlink all of
 # the contents instead.
@@ -97,13 +75,6 @@ elif [ -d "${HOME}/.config" ]; then
 	unset FILES_TO_SYMLINK[0]
 fi
 
-# We want ~/.config/git to be writable so make a copy
-if [ ! -z "$DEVCONTAINER_STANDALONE" ]; then
-	# rm  "$HOME/.config/git"
-	# mkdir "$HOME/.config/git"
-	# cp "$DOTFILES_PATH/config/git/config" "$HOME/.config/git"
-	echo "don't think this is necessary anymore"
-fi
 for FILE in "${FILES_TO_SYMLINK[@]}"; do
 	source_path="${DOTFILES_PATH}/${FILE}"
 	dest_path="${HOME}/.${FILE}"
@@ -115,11 +86,7 @@ symlink_without_overwriting "$DOTFILES_PATH/bin" "$HOME/bin"
 [ $(uname -s) = "Linux" ] && export LINUX=1
 [ $(uname -s) = "Darwin" ] && export DARWIN=1
 
-if [ $CODESPACES ]; then
-	ln -fs "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
-else
-	symlink_without_overwriting "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
-fi
+symlink_without_overwriting "$DOTFILES_PATH/zshrc" "$HOME/.zshrc"
 
 hash git-credential-github-keychain 2>/dev/null || {
 	./script/install-git-credential-helper
@@ -128,30 +95,9 @@ hash git-credential-github-keychain 2>/dev/null || {
 if [ $LINUX ]; then
 	echo "Symlinking linux specific files"
 
-	if [ ! -f "/usr/local/lib/z.sh" ]; then
-		echo "Download z.sh"
-		wget https://raw.githubusercontent.com/rupa/z/master/z.sh -O ~/z.sh
-		sudo mv ~/z.sh /usr/local/lib/z.sh
-	fi
-
-	if [ ! $DEVCONTAINER_STANDALONE ]; then
-		ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
-		ln -fs "$HOME/.config/github-keychain/default-config.linux.toml" "$HOME/.config/github-keychain/default-config.toml"
-	else
-		ln -fs "$HOME/.config/github-keychain/default-config.github-codespaces.toml" "$HOME/.config/github-keychain/default-config.toml"
-
-		ln -fs "$HOME/.config/p10k/p10k.zsh.codespaces" "$HOME/.p10k.zsh"
-	fi
-
-	if [ $CODESPACES ]; then
-		sudo git config -f /etc/gitconfig --replace-all credential.helper "$HOME/bin/git-credential-github-keychain"
-		sudo git config -f /etc/gitconfig credential.useHttpPath true
-		sudo git config -f /etc/gitconfig gpg.program /.codespaces/bin/gh-gpgsign
-		ln -fs "$HOME/.config/github-keychain/default-config.github-codespace.toml" "$HOME/.config/github-keychain/default-config.toml"
-		ln -fs "$HOME/.config/p10k/p10k.zsh.codespaces" "$HOME/.p10k.zsh"
-	else
-		ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
-	fi
+	ln -fs "$(pwd)/zshrc.linux" "$(pwd)/system.zshrc"
+	ln -fs "$HOME/.config/github-keychain/default-config.linux.toml" "$HOME/.config/github-keychain/default-config.toml"
+	ln -fs "$HOME/.config/p10k/p10k.zsh.linux" "$HOME/.p10k.zsh"
 elif [ $DARWIN ]; then
 	echo "Symlinking darwin specific files"
 	ln -fs "$(pwd)/zshrc.darwin" "$(pwd)/system.zshrc"
@@ -169,15 +115,7 @@ if [ $LINUX ]; then
 	sudo apt-get update -y && sudo apt-get install -y build-essential procps curl file git
 fi
 
-[ ! $CODESPACES ] && ./script/install-brew-dependencies
-
-[ ! -f "$HOME/.z" ] && touch "$HOME/.z"
-
-# Codespaces has a .gitconfig already setup, but in order to take advantage of
-# the attributes set in /etc/gitconfig we have to explicitly include the path.
-if [ $CODESPACES ]; then
-	git config --global include.path /etc/gitconfig
-fi
+./script/install-brew-dependencies
 
 echo "Done"
 

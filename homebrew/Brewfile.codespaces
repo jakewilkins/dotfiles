@@ -1,8 +1,0 @@
-
-brew "fzf"
-#brew "git"
-brew "jq"
-brew "luajit", args: ["HEAD"]
-brew "neovim"#, args: ["HEAD"]
-brew "ripgrep"
-brew "tmux"

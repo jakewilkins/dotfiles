@@ -16,7 +16,7 @@ cd ~/src/$(whoami)/dotfiles
 ./script/setup
 ```
 
-Meant primarily for MacOS, but also works for [GitHub Codespaces](https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-codespaces-for-your-account#dotfiles) if that's your jam.
+Meant for MacOS, with partial Linux support.
 
 ## Thanks to...
 

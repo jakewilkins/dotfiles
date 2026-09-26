@@ -1,33 +1,16 @@
 
 alias ip='ip -4 a show enp4s0'
 
-alias cgh='cd /home/workspace/github'
-
 alias ls='ls --color=auto'
 
 alias beans="echo bruh"
 
 export GPG_TTY=$(tty)
 
-whence apptokit 2>&1 >/dev/null
-if [[ "$?" == "0" ]]; then
-	whence _apptokit_wrapper 2>&1 >/dev/null || eval "$(apptokit shell-setup -)"
-fi
-
 if [[ $PATH != *"/home/linuxbrew/.linuxbrew/sbin"* ]]; then
 	if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
 		eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 	fi
-fi
-
-if [ $CODESPACES ]; then
-	[ -f "/home/linuxbrew/.linuxbrew/etc/profile.d/z.sh" ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/z.sh
-
-	alias cdd="cd /workspaces/.codespaces/.persistedshare/dotfiles"
-	alias setup-ssh-codespace="$HOME/.dotfiles/script/setup-ssh-codespace"
-	alias setup-codespace-tmux="$HOME/.dotfiles/codespaces-helpers/script/setup-tmux-session"
-else
-	. /usr/local/lib/z.sh
 fi
 
 # Created by `pipx` on 2024-05-30 17:10:35

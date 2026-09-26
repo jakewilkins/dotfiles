@@ -54,15 +54,12 @@
 [gc]
 	auto = 0
 
-[hub]
-	protocol = https
-
 [include]
 	path = ~/.config/git/personal
 
 [user]
-	email = "jakewilkins@github.com"
 	name = "Jake Wilkins"
+	# email is set per-machine in ~/.config/git/personal
 
 [init]
 	defaultBranch = main

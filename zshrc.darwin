@@ -15,13 +15,6 @@ alias ip='ipconfig getifaddr en0'
 
 alias ql='qlmanage -p'
 
-if [ -f /home/workspace/apptokit/bin/apptokit ]; then
-  /usr/bin/type -t _apptokit_wrapper 2>&1 >/dev/null || eval "$(/home/workspace/apptokit/bin/apptokit shell-setup -)"
-fi
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /Users/jakewilkins/bin/hubbers hubbers
-
 source $homebrew_location/opt/chruby/share/chruby/chruby.sh
 source $homebrew_location/opt/chruby/share/chruby/auto.sh
 
@@ -30,5 +23,4 @@ chruby $latest_ruby
 
 alias ssh="TERM=xterm-256color ssh"
 
-alias nghcs='gh cs create --repo github/github --branch master --devcontainer-path .devcontainer/devcontainer.json -m xLargePremiumLinux'
 eval "$(/opt/homebrew/bin/brew shellenv)"

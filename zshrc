@@ -49,8 +49,6 @@ alias gpc='git push --set-upstream origin "$(~/.dotfiles/bin/git-branch-current 
 alias gpp='git push origin `~/.dotfiles/bin/git-branch-current`'
 alias opr='open $(git remote get-url origin)/pull/$(~/.dotfiles/bin/git-branch-current)'
 alias gcompare='open $(git remote get-url origin)/compare/$(~/.dotfiles/bin/git-branch-current)'
-alias gco='git checkout -- Gemfile.lock; git co'
-alias console='./script/console --pry'
 
 function cjq() {
   curl $1 | jq .
@@ -182,8 +180,12 @@ if [[ $PATH != *"./bin:"* ]]; then
   export PATH=./bin:$PATH
 fi
 
+if [[ $PATH != *"$HOME/.local/bin:"* ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 if [[ $PATH != *"$HOME/bin:"* ]]; then
-  export PATH=$HOME/bin:$PATH
+  export PATH="$HOME/bin:$PATH"
 fi
 
 if [[ $PATH != *"$HOME/.rbenv/bin"* ]]; then
@@ -236,7 +238,4 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias '??'='github-copilot-cli what-the-shell'
-alias 'git?'='github-copilot-cli git-assist'
-alias 'gh?'='github-copilot-cli gh-assist'
-
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
