@@ -49,6 +49,7 @@ alias gpc='git push --set-upstream origin "$(~/.dotfiles/bin/git-branch-current 
 alias gpp='git push origin `~/.dotfiles/bin/git-branch-current`'
 alias opr='open $(git remote get-url origin)/pull/$(~/.dotfiles/bin/git-branch-current)'
 alias gcompare='open $(git remote get-url origin)/compare/$(~/.dotfiles/bin/git-branch-current)'
+alias gco='git checkout -- Gemfile.lock; git co'
 
 function cjq() {
   curl $1 | jq .
